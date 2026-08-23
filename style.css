@@ -1,0 +1,95 @@
+:root{
+  --purple:#6D28D9;
+  --purple-deep:#4C1D95;
+  --lime:#D6FA3B;
+  --lime-deep:#A9CC1F;
+  --cream:#F7F2E4;
+  --ink:#15130F;
+  --ink-soft:#5B5648;
+}
+
+html,body{
+  background: radial-gradient(circle at 15% 10%, var(--purple) 0%, var(--purple-deep) 70%);
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  min-height:100%;
+  overflow-x:hidden;
+}
+
+.font-display{ font-family:'Space Grotesk', sans-serif; }
+.font-mono{ font-family:'JetBrains Mono', monospace; }
+
+/* ---- Lapisan dekoratif latar belakang ---- */
+.deco{ position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+.ghost-text{
+  position:absolute; font-family:'Space Grotesk',sans-serif; font-weight:700;
+  color:rgba(255,255,255,0.07); white-space:nowrap; user-select:none;
+}
+.dotgrid{
+  position:absolute; width:110px; height:110px;
+  background-image: radial-gradient(rgba(214,250,59,0.35) 2px, transparent 2px);
+  background-size: 16px 16px;
+}
+.squiggle{ position:absolute; opacity:0.55; }
+.star{ position:absolute; }
+
+/* ---- Klip lanyard di atas kartu ---- */
+.lanyard-wrap{ display:flex; justify-content:center; margin-bottom:-22px; position:relative; z-index:2; }
+
+/* ---- Kartu badge utama ---- */
+.badge{
+  background: var(--cream);
+  box-shadow: 0 25px 60px -15px rgba(20,10,40,0.55);
+  position:relative;
+}
+.badge::before{
+  content:"";
+  position:absolute; top:14px; left:50%; transform:translateX(-50%);
+  width:26px; height:26px; border-radius:9999px;
+  background: radial-gradient(circle at 35% 30%, var(--purple), var(--purple-deep));
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Highlight garis bawah lime untuk teks (nama/jabatan) */
+.split-underline{
+  background-image: linear-gradient(var(--lime), var(--lime));
+  background-repeat: no-repeat;
+  background-size: 100% 38%;
+  background-position: 0 88%;
+}
+
+/* Ikon media sosial berbentuk chip kotak */
+.icon-chip{
+  width:34px; height:34px; border-radius:9px;
+  background: var(--ink); color: var(--lime);
+  display:flex; align-items:center; justify-content:center;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.icon-chip:hover{ transform: translateY(-2px) rotate(-3deg); background: var(--purple); }
+
+/* Tombol kontak */
+.btn-whatsapp{
+  background: var(--ink); color: var(--lime);
+  transition: transform .15s ease, opacity .15s ease;
+}
+.btn-whatsapp:hover{ transform: translateY(-1px); opacity:.92; }
+
+.btn-email{
+  border:2px solid var(--ink);
+  transition: transform .15s ease, background-color .15s ease;
+}
+.btn-email:hover{ background: var(--ink); color: var(--cream); transform: translateY(-1px); }
+
+/* Garis putus-putus ala tiket & barcode dekoratif */
+.ticket-edge{
+  border-top: 2.5px dashed rgba(21,19,15,0.25);
+}
+.barcode span{
+  display:inline-block; width:2.5px; margin-right:2px; background: var(--ink);
+}
+
+/* Animasi kartu muncul */
+@keyframes rise{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform: translateY(0);} }
+.rise{ animation: rise .55s ease both; }
+
+.hidden{ display:none !important; }

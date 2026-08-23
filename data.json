@@ -1,0 +1,26 @@
+{
+  "fadil": {
+    "nama": "Muhammad Fadil",
+    "jabatan": "Data Analyst",
+    "foto": "Assets/fadil.jpeg",
+    "email": "fadil@email.com",
+    "whatsapp": "6281234567890",
+    "linkedin": "https://linkedin.com/in/fadil",
+    "instagram": "https://instagram.com/fadil",
+    "tiktok": "https://tiktok.com/@fadil",
+    "facebook": "",
+    "youtube": "https://youtube.com/@fadil"
+  },
+  "siti": {
+    "nama": "Siti Nurhaliza",
+    "jabatan": "",
+    "foto": "https://i.pravatar.cc/400?img=47",
+    "email": "siti.nurhaliza@email.com",
+    "whatsapp": "6289876543210",
+    "linkedin": "",
+    "instagram": "https://instagram.com/sitinurhaliza",
+    "tiktok": "",
+    "facebook": "https://facebook.com/sitinurhaliza",
+    "youtube": ""
+  }
+}
