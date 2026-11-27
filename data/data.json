@@ -2,7 +2,7 @@
   "fadil": {
     "nama": "Muhammad Fadil",
     "jabatan": "Data Analyst",
-    "foto": "Assets/fadil.jpeg",
+    "foto": "assets/img/fadil.jpeg",
     "email": "fadilganzzgt@email.com",
     "whatsapp": "6285725819698",
     "linkedin": "https://linkedin.com/in/fadil",
@@ -14,7 +14,7 @@
   "xav": {
     "nama": "Xavier Avarx",
     "jabatan": "CEO of Google",
-    "foto": "Assets/man.jpg",
+    "foto": "assets/img/man.jpg",
     "email": "xavier@email.com",
     "whatsapp": "6289876543210",
     "linkedin": "https://id.linkedin.com/in/xavierusman",
@@ -26,7 +26,7 @@
   "shafira": {
     "nama": "Shafira Maulia",
     "jabatan": "Owner Dubai Cuwi Kuki",
-    "foto": "Assets/shaf.jpeg",
+    "foto": "assets/img/shaf.jpeg",
     "email": "shafira@email.com",
     "whatsapp": "6281234567890",
     "linkedin": "https://id.linkedin.com/in/shafiramaulia ",

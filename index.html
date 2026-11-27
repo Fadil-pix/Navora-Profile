@@ -3,154 +3,358 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navora Digital</title>
-
-<!-- Tailwind CSS via CDN -->
+<title>Navora Digital — Kartu Profil Digital & ID Card QR</title>
+<script>
+  // Kompatibilitas tautan lama (?id=...) agar langsung mengarah ke halaman profil
+  if (new URLSearchParams(window.location.search).has('id')) {
+    window.location.replace('profil.html' + window.location.search);
+  }
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Google Fonts: Space Grotesk (headline tebal), Inter (body), JetBrains Mono (label kecil) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-<!-- Styling khusus halaman ini -->
-<link rel="stylesheet" href="style.css">
-<link rel="icon" href="Assets/logo.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/img/logo.png">
 </head>
 
-<body class="relative min-h-screen flex items-center justify-center px-4 py-14">
+<body class="relative min-h-screen text-[var(--ink)]">
 
   <!-- Lapisan dekoratif -->
   <div class="deco">
-    <p class="ghost-text text-[9rem] -top-6 -left-6 rotate-[-6deg]">ID</p>
-    <p class="ghost-text text-[7rem] bottom-4 right-[-1.5rem] rotate-[4deg]">DIGITAL</p>
-    <div class="dotgrid top-8 left-8"></div>
-    <div class="dotgrid bottom-10 right-6"></div>
+    <p class="ghost-text text-[10rem] -top-8 -left-6 rotate-[-6deg]">NAVORA</p>
+    <p class="ghost-text text-[8rem] bottom-6 right-[-1.5rem] rotate-[4deg]">DIGITAL</p>
+    <div class="dotgrid top-16 left-8"></div>
+    <div class="dotgrid bottom-12 right-6"></div>
 
-    <svg class="squiggle" width="260" height="120" style="top:38%; right:-40px;" viewBox="0 0 260 120" fill="none">
+    <svg class="squiggle" width="260" height="120" style="top:34%; right:-40px;" viewBox="0 0 260 120" fill="none">
       <path d="M2 60 C40 10, 70 110, 110 60 S180 10, 220 60 S258 100 258 100" stroke="#D6FA3B" stroke-width="3" stroke-linecap="round"/>
     </svg>
 
-    <svg class="star" width="90" height="90" style="top:14%; left:6%;" viewBox="0 0 100 100" fill="#D6FA3B">
+    <svg class="star" width="84" height="84" style="top:14%; left:5%; opacity:.85;" viewBox="0 0 100 100" fill="#D6FA3B">
       <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
     </svg>
-    <svg class="star" width="46" height="46" style="bottom:8%; left:14%; opacity:.7;" viewBox="0 0 100 100" fill="#D6FA3B">
+    <svg class="star" width="44" height="44" style="bottom:10%; left:12%; opacity:.65;" viewBox="0 0 100 100" fill="#D6FA3B">
       <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
     </svg>
   </div>
 
-  <!-- STATE: LOADING -->
-  <div id="state-loading" class="relative z-10 flex flex-col items-center gap-3 text-white/80">
-    <div class="w-9 h-9 rounded-full border-2 border-[var(--lime)] border-t-transparent animate-spin"></div>
-    <p class="font-mono text-xs tracking-widest uppercase">Memuat profil…</p>
-  </div>
+  <!-- Navbar -->
+  <header class="relative z-20 max-w-6xl mx-auto px-4 pt-5">
+    <nav class="glass-panel rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 text-white">
+        <img src="assets/img/logo.png" alt="Navora Logo" class="w-8 h-8 rounded-lg object-cover bg-[var(--lime)] p-0.5">
+        <span class="font-display font-700 text-lg tracking-tight">Navora <span class="text-[var(--lime)]">Digital</span></span>
+      </a>
 
-  <!-- STATE: ERROR -->
-  <div id="state-error" class="hidden relative z-10 w-full max-w-sm rise">
-    <div class="badge rounded-[28px] p-8 pt-10 text-center">
-      <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] mb-5">Kartu Profil Digital</p>
-      <svg class="w-12 h-12 mx-auto mb-4" viewBox="0 0 100 100" fill="var(--purple)">
-        <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
-      </svg>
-      <h1 class="font-display font-700 text-3xl leading-[1.05]">Profil</h1>
-      <h1 class="font-display font-700 text-3xl leading-[1.05] split-underline inline-block mb-4">tidak ditemukan.</h1>
-      <p class="text-sm text-[var(--ink-soft)] leading-relaxed mt-3">
-        ID pada tautan ini tidak cocok dengan data manapun. Coba periksa lagi, contohnya
-        <span class="font-mono text-[13px] text-[var(--ink)]">?id=budi</span>.
-      </p>
+      <div class="hidden md:flex items-center gap-6 text-sm text-white/80 font-medium">
+        <a href="#cara-kerja" class="hover:text-[var(--lime)] transition">Cara Kerja</a>
+        <a href="#buat-kartu" class="hover:text-[var(--lime)] transition">Buat Kartu</a>
+        <a href="profil.html?id=fadil" class="hover:text-[var(--lime)] transition">Contoh Profil</a>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <a href="#buat-kartu" class="btn-lime rounded-xl px-3.5 py-2 text-xs font-700 font-display uppercase tracking-wide">
+          Buat ID Card
+        </a>
+        <a href="admin.html" class="rounded-xl px-3.5 py-2 text-xs font-mono font-700 text-white/90 border border-white/25 hover:bg-white/10 transition">
+          Admin
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Banner Mode Demo (muncul otomatis jika Firebase belum dikonfigurasi) -->
+  <div id="demo-banner" class="hidden relative z-20 max-w-6xl mx-auto px-4 mt-4">
+    <div class="rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] px-4 py-2.5 text-xs font-medium flex flex-wrap items-center justify-between gap-2">
+      <span><strong>Mode Demo Lokal Aktif:</strong> Data tersimpan di browser ini. Isi <code class="font-mono bg-black/10 px-1.5 py-0.5 rounded">js/config/firebase-config.js</code> untuk menghubungkan ke Firebase Firestore.</span>
+      <a href="admin.html" class="font-mono font-700 underline">Buka Admin →</a>
     </div>
   </div>
 
-  <!-- STATE: CARD -->
-  <div id="state-card" class="hidden relative z-10 w-full max-w-sm rise">
+  <main class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
 
-    <!-- Lanyard clip -->
-    <div class="lanyard-wrap">
-      <svg width="86" height="150" viewBox="0 0 86 150" fill="none">
-        <rect x="30" y="0" width="26" height="70" rx="6" fill="var(--lime)"/>
-        <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)"/>
-        <circle cx="43" cy="72" r="9" fill="#D9D9D9" stroke="#9A9A9A" stroke-width="2"/>
-        <path d="M43 81 L43 100" stroke="#B9B9B9" stroke-width="5" stroke-linecap="round"/>
-        <path d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z"
-              fill="#E6E6E6" stroke="#A6A6A6" stroke-width="2"/>
-      </svg>
-    </div>
+    <!-- HERO SECTION -->
+    <section class="pt-10 pb-14 lg:py-16 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 text-white rise">
+        <div class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-3.5 py-1.5 mb-5">
+          <span class="w-2 h-2 rounded-full bg-[var(--lime)] animate-pulse"></span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--lime)]">Kartu Profil Digital + ID Card QR</span>
+        </div>
 
-    <div class="badge rounded-[28px] overflow-hidden pt-9">
+        <h1 class="font-display font-700 text-4xl sm:text-5xl lg:text-6xl leading-[1.03] tracking-tight mb-5">
+          Satu Kartu Cerdas,<br>
+          <span class="split-underline text-[var(--ink)] bg-[var(--lime)] px-2 rounded-lg inline-block mt-1">Semua Kontakmu.</span>
+        </h1>
 
-      <div class="px-7">
-<p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-6 mb-4">          Kartu Profil Digital
+        <p class="text-white/80 text-base sm:text-lg leading-relaxed max-w-xl mb-8">
+          Isi data dirimu sendiri dalam 1 menit. Website profil pribadimu langsung dibuat otomatis lengkap dengan <strong class="text-[var(--lime)]">QR Code</strong>, dan admin langsung menerima notifikasi untuk mencetak ID Card fisikmu.
         </p>
-        <h1 id="profile-name" class="font-display font-700 text-3xl leading-[1.05] text-center mb-5"></h1>
-      </div>
 
-      <div class="px-7 flex items-start gap-3">
-        <div id="social-col" class="flex flex-col gap-2 pt-1">
-          <a id="social-instagram" href="#" target="_blank" rel="noopener" class="hidden icon-chip">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/>
+        <div class="flex flex-wrap items-center gap-3.5">
+          <a href="#buat-kartu" class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center gap-2">
+            <span>Input Data Sekarang</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
             </svg>
           </a>
-          <a id="social-tiktok" href="#" target="_blank" rel="noopener" class="hidden icon-chip">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3c.3 1.9 1.6 3.4 3.5 3.8v2.6a6.3 6.3 0 01-3.5-1.1v6.2a5.3 5.3 0 11-4.6-5.2v2.7a2.6 2.6 0 102.1 2.6V3h2.5z"/>
-            </svg>
-          </a>
-          <a id="social-facebook" href="#" target="_blank" rel="noopener" class="hidden icon-chip">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13.5 21v-7.5H16l.4-3H13.5V8.4c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.4 0-4 1.5-4 4.1v2.4H7.8v3h2.4V21h3.3z"/>
-            </svg>
-          </a>
-          <a id="social-youtube" href="#" target="_blank" rel="noopener" class="hidden icon-chip">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.5 7.5s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.9 4.3 12 4.3 12 4.3h0s-3.9 0-6.6.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.3 9.3 2.3 11v1.9c0 1.8.2 3.5.2 3.5s.2 1.5.8 2.1c.8.8 1.9.8 2.3.9 1.7.1 7.2.2 7.2.2s3.9 0 6.6-.2c.4-.1 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.8.2-3.5V11c0-1.8-.2-3.5-.2-3.5zM9.8 14.6V8.9l5.4 2.9-5.4 2.8z"/>
-            </svg>
-          </a>
-          <a id="social-linkedin" href="#" target="_blank" rel="noopener" class="hidden icon-chip">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6.9 8.4H4V20h2.9V8.4zM5.4 4a1.7 1.7 0 100 3.3 1.7 1.7 0 000-3.3zM20 13.4c0-3.1-1.7-4.6-4-4.6a3.4 3.4 0 00-3.1 1.7V8.4H10V20h2.9v-6.1c0-1.6.3-3.1 2.2-3.1s1.9 1.8 1.9 3.2V20H20v-6.6z"/>
-            </svg>
+          <a href="profil.html?id=fadil" class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center gap-2">
+            <span>Lihat Demo Kartu</span>
           </a>
         </div>
 
-        <div class="flex-1 aspect-square rounded-2xl overflow-hidden" style="background:var(--lime);">
-          <img id="profile-photo" src="" alt="" class="w-full h-full object-cover object-center">
+        <div class="mt-9 grid grid-cols-3 gap-4 max-w-md pt-6 border-t border-white/15">
+          <div>
+            <p class="font-display font-700 text-2xl text-[var(--lime)]">1 Menit</p>
+            <p class="text-xs text-white/70">Web & QR langsung jadi</p>
+          </div>
+          <div>
+            <p class="font-display font-700 text-2xl text-[var(--lime)]">Real-Time</p>
+            <p class="text-xs text-white/70">Notifikasi cetak admin</p>
+          </div>
+          <div>
+            <p class="font-display font-700 text-2xl text-[var(--lime)]">Rp 25rb</p>
+            <p class="text-xs text-white/70">Termasuk ID Card fisik</p>
+          </div>
         </div>
       </div>
 
-      <div class="px-7 pt-4 text-center">
-        <p id="profile-jabatan" class="hidden inline-block font-700 text-sm split-underline px-0.5"></p>
-      </div>
-
-      <div class="px-7 pt-5 pb-6 flex items-center gap-2">
-        <a id="link-email" href="#" class="btn-email flex-1 flex items-center justify-center gap-1.5 rounded-lg px-2 py-2">
-          <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/>
-          </svg>
-          <span id="text-email" class="text-xs font-500 truncate"></span>
-        </a>
-        <a id="link-whatsapp" href="#" target="_blank" rel="noopener" class="btn-whatsapp flex-1 flex items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-xs font-700 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1112 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1s-.6.8-.7.9-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2 7.2 7.2 0 01-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4a.5.5 0 000-.5c-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.5 11.1 11.1 0 004.6 4c.6.3 1.1.4 1.5.6.6.2 1.2.1 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1s-.2-.2-.4-.3z"/>
-          </svg>
-          WhatsApp
-        </a>
-      </div>
-
-      <div class="ticket-edge mx-7"></div>
-      <div class="px-7 py-4 flex items-center justify-between">
-        <div class="barcode flex items-end h-6">
-          <span style="height:100%"></span><span style="height:55%"></span><span style="height:80%"></span>
-          <span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span>
-          <span style="height:50%"></span><span style="height:90%"></span><span style="height:60%"></span>
-          <span style="height:100%"></span><span style="height:45%"></span><span style="height:75%"></span>
+      <!-- Hero Badge Preview -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-[320px] float-badge">
+          <div class="lanyard-wrap">
+            <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
+              <rect x="30" y="0" width="26" height="70" rx="6" fill="var(--lime)"/>
+              <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)"/>
+              <circle cx="43" cy="72" r="9" fill="#D9D9D9" stroke="#9A9A9A" stroke-width="2"/>
+              <path d="M43 81 L43 100" stroke="#B9B9B9" stroke-width="5" stroke-linecap="round"/>
+              <path d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z" fill="#E6E6E6" stroke="#A6A6A6" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
+            <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2">Kartu Profil Digital</p>
+            <h2 class="font-display text-2xl text-center mb-4"><span class="font-500">Muhammad</span> <span class="font-700">Fadil</span></h2>
+            <div class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3">
+              <img src="assets/img/fadil.jpeg" alt="Contoh Profil" class="w-full h-full object-cover">
+            </div>
+            <div class="text-center mb-3">
+              <span class="inline-block font-700 text-xs split-underline px-1">Data Analyst</span>
+            </div>
+            <div class="ticket-edge pt-3 flex items-center justify-between">
+              <div class="barcode flex items-end h-5">
+                <span style="height:100%"></span><span style="height:55%"></span><span style="height:80%"></span>
+                <span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span>
+                <span style="height:50%"></span><span style="height:90%"></span>
+              </div>
+              <span class="font-mono text-[10px] text-[var(--ink-soft)] uppercase">ID: fadil</span>
+            </div>
+          </div>
         </div>
-        <p id="id-badge" class="font-mono text-[10px] tracking-[0.15em] text-[var(--ink-soft)] uppercase text-right leading-tight"></p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Logika baca ?id= dan render data -->
-  <script src="script.js"></script>
+    <!-- CARA KERJA -->
+    <section id="cara-kerja" class="py-10">
+      <div class="text-center text-white mb-8">
+        <p class="font-mono text-xs tracking-[0.25em] uppercase text-[var(--lime)] mb-2">Alur Otomatis</p>
+        <h2 class="font-display font-700 text-3xl sm:text-4xl">Cara Kerja Navora Digital</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="cream-card rounded-3xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-[var(--ink)] text-[var(--lime)] font-mono font-700 flex items-center justify-center mb-4">01</div>
+          <h3 class="font-display font-700 text-xl mb-2">Input Data Mandiri</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Isi nama, jabatan, foto profil, WhatsApp, email, dan media sosialmu langsung melalui form di bawah.</p>
+        </div>
+        <div class="cream-card rounded-3xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-[var(--purple)] text-[var(--lime)] font-mono font-700 flex items-center justify-center mb-4">02</div>
+          <h3 class="font-display font-700 text-xl mb-2">Web & QR Code Otomatis</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Halaman website profilmu langsung aktif dan QR Code unik otomatis terbuat serta bisa diunduh.</p>
+        </div>
+        <div class="cream-card rounded-3xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] font-mono font-700 flex items-center justify-center mb-4">03</div>
+          <h3 class="font-display font-700 text-xl mb-2">Notifikasi Admin & Cetak</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Saat QR Code muncul, admin mendapat notifikasi real-time untuk mencetak ID Card & proses pembayaran.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM INPUT CLIENT + LIVE PREVIEW / QR RESULT -->
+    <section id="buat-kartu" class="pt-10">
+      <div class="text-center text-white mb-8">
+        <p class="font-mono text-xs tracking-[0.25em] uppercase text-[var(--lime)] mb-2">Registrasi Pelanggan</p>
+        <h2 class="font-display font-700 text-3xl sm:text-4xl">Buat Kartu Profil & QR Code</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Kolom Form / Hasil QR -->
+        <div class="lg:col-span-7">
+
+          <!-- FORM CARD -->
+          <form id="client-form" class="cream-card rounded-[28px] p-6 sm:p-8 space-y-5">
+            <div class="flex items-center justify-between border-b border-black/10 pb-4">
+              <div>
+                <h3 class="font-display font-700 text-xl">Data Pelanggan</h3>
+                <p class="text-xs text-[var(--ink-soft)]">Lengkapi data di bawah untuk membuat halaman profil otomatis.</p>
+              </div>
+              <span class="font-mono text-[11px] bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full font-700">GRATIS WEB</span>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
+                <input type="text" id="input-nama" required placeholder="cth: Budi Santoso" class="navora-input">
+              </div>
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Jabatan / Profesi *</label>
+                <input type="text" id="input-jabatan" required placeholder="cth: UI/UX Designer" class="navora-input">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">ID / Slug URL *</label>
+                <div class="relative">
+                  <input type="text" id="input-slug" required placeholder="budi-santoso" class="navora-input font-mono text-xs pr-20">
+                  <span id="slug-status" class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] font-700 text-[var(--ink-soft)]"></span>
+                </div>
+                <p class="text-[11px] text-[var(--ink-soft)] mt-1 font-mono truncate" id="slug-preview">profil.html?id=...</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Foto Profil</label>
+                <label class="navora-input flex items-center justify-between cursor-pointer hover:border-[var(--purple)]">
+                  <span id="photo-filename" class="text-xs text-[var(--ink-soft)] truncate">Pilih foto (JPG/PNG)...</span>
+                  <span class="font-mono text-[11px] font-700 bg-[var(--ink)] text-[var(--lime)] px-2.5 py-1 rounded-lg shrink-0">Upload</span>
+                  <input type="file" id="input-foto" accept="image/*" class="hidden">
+                </label>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Email</label>
+                <input type="email" id="input-email" placeholder="budi@email.com" class="navora-input">
+              </div>
+              <div>
+                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Nomor WhatsApp</label>
+                <input type="tel" id="input-whatsapp" placeholder="081234567890" class="navora-input">
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <p class="text-xs font-700 uppercase tracking-wider mb-2.5 text-[var(--ink-soft)]">Media Sosial (Opsional)</p>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <input type="url" id="input-instagram" placeholder="Link Instagram (https://...)" class="navora-input text-xs">
+                <input type="url" id="input-tiktok" placeholder="Link TikTok (https://...)" class="navora-input text-xs">
+                <input type="url" id="input-linkedin" placeholder="Link LinkedIn (https://...)" class="navora-input text-xs">
+                <input type="url" id="input-youtube" placeholder="Link YouTube (https://...)" class="navora-input text-xs">
+                <input type="url" id="input-facebook" placeholder="Link Facebook (https://...)" class="navora-input text-xs sm:col-span-2">
+              </div>
+            </div>
+
+            <div id="form-error" class="hidden rounded-xl bg-red-100 border border-red-400 text-red-800 px-4 py-2.5 text-xs font-medium"></div>
+
+            <button type="submit" id="btn-submit" class="btn-lime w-full rounded-xl py-3.5 font-display font-700 text-base flex items-center justify-center gap-2">
+              <span id="btn-submit-text">Buat Halaman Profil & QR Code</span>
+            </button>
+          </form>
+
+          <!-- HASIL QR CODE OTOMATIS (muncul setelah submit) -->
+          <div id="qr-result" class="hidden cream-card rounded-[28px] p-6 sm:p-8 rise">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 mb-6">
+              <div>
+                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-700 bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full mb-2">
+                  <span class="w-2 h-2 rounded-full bg-green-600 animate-ping"></span>
+                  NOTIFIKASI TERKIRIM KE ADMIN
+                </span>
+                <h3 class="font-display font-700 text-2xl">Halaman & QR Code Siap!</h3>
+              </div>
+              <button type="button" id="btn-create-another" class="text-xs font-mono font-700 underline text-[var(--purple)] hover:text-[var(--ink)]">
+                + Buat Kartu Baru
+              </button>
+            </div>
+
+            <div class="grid sm:grid-cols-12 gap-6 items-center">
+              <div class="sm:col-span-5 flex flex-col items-center bg-white p-5 rounded-2xl border-2 border-[var(--ink)]">
+                <div id="qr-container" class="p-2 bg-white"></div>
+                <p id="qr-id-label" class="font-mono text-[11px] font-700 uppercase mt-2 text-[var(--ink-soft)]"></p>
+              </div>
+
+              <div class="sm:col-span-7 space-y-4">
+                <div>
+                  <p class="text-xs font-700 uppercase tracking-wider text-[var(--ink-soft)] mb-1">URL Halaman Profil Anda</p>
+                  <div class="flex items-center gap-2">
+                    <input type="text" id="result-url" readonly class="navora-input font-mono text-xs bg-white">
+                    <button type="button" id="btn-copy-url" class="btn-ink rounded-xl px-3.5 py-2.5 text-xs font-700 shrink-0">Salin</button>
+                  </div>
+                </div>
+
+                <div class="rounded-xl bg-purple-100 border border-purple-300 p-3.5 text-xs text-purple-950 leading-relaxed">
+                  <strong>Langkah Selanjutnya:</strong> Admin Navora Digital sudah menerima notifikasi pesanan Anda. Silakan tunjukkan QR / ID ini ke admin untuk <strong>cetak ID Card fisik & pembayaran</strong>.
+                </div>
+
+                <div class="flex flex-wrap gap-2.5 pt-1">
+                  <a id="btn-open-profile" href="#" target="_blank" class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display inline-flex items-center gap-1.5">
+                    Buka Halaman Profil →
+                  </a>
+                  <button type="button" id="btn-download-qr" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700">
+                    Download QR (PNG)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Kolom Live Preview -->
+        <div class="lg:col-span-5 flex flex-col items-center lg:sticky lg:top-8">
+          <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--lime)] mb-3">Live Preview Kartu Anda</p>
+          <div class="w-full max-w-[330px]">
+            <div class="lanyard-wrap">
+              <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
+                <rect x="30" y="0" width="26" height="70" rx="6" fill="var(--lime)"/>
+                <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)"/>
+                <circle cx="43" cy="72" r="9" fill="#D9D9D9" stroke="#9A9A9A" stroke-width="2"/>
+                <path d="M43 81 L43 100" stroke="#B9B9B9" stroke-width="5" stroke-linecap="round"/>
+                <path d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z" fill="#E6E6E6" stroke="#A6A6A6" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2">Kartu Profil Digital</p>
+              <h3 id="prev-nama" class="font-display text-2xl text-center mb-4 font-700">Nama Anda</h3>
+              <div class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3">
+                <img id="prev-foto" src="assets/img/man.jpg" alt="Preview" class="w-full h-full object-cover">
+              </div>
+              <div class="text-center mb-4">
+                <span id="prev-jabatan" class="inline-block font-700 text-xs split-underline px-1">Jabatan / Profesi</span>
+              </div>
+              <div class="flex items-center gap-2 mb-4">
+                <div class="btn-email flex-1 rounded-lg px-2 py-2 text-[11px] text-center truncate" id="prev-email">email@anda.com</div>
+                <div class="btn-whatsapp flex-1 rounded-lg px-2 py-2 text-[11px] font-700 text-center">WhatsApp</div>
+              </div>
+              <div class="ticket-edge pt-3 flex items-center justify-between">
+                <div class="barcode flex items-end h-5">
+                  <span style="height:100%"></span><span style="height:55%"></span><span style="height:80%"></span>
+                  <span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span>
+                </div>
+                <span id="prev-id" class="font-mono text-[10px] text-[var(--ink-soft)] uppercase">ID: -</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 border-t border-white/15 py-6 text-center text-xs text-white/60 font-mono">
+    © 2026 Navora Digital — Kartu Profil Digital & ID Card QR
+  </footer>
+
+  <script type="module" src="js/pages/landing.js"></script>
 </body>
 </html>

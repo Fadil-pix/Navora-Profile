@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Navora Digital</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/img/logo.png">
+</head>
+
+<body class="relative min-h-screen text-[var(--ink)]">
+
+  <!-- Lapisan dekoratif -->
+  <div class="deco no-print">
+    <p class="ghost-text text-[9rem] -top-8 -left-6 rotate-[-6deg]">ADMIN</p>
+    <p class="ghost-text text-[7rem] bottom-4 right-[-1.5rem] rotate-[4deg]">NAVORA</p>
+    <div class="dotgrid top-12 left-8"></div>
+    <div class="dotgrid bottom-12 right-6"></div>
+  </div>
+
+  <!-- LOGIN VIEW -->
+  <div id="login-view" class="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="cream-card rounded-[28px] p-8 max-w-md w-full rise">
+      <div class="flex items-center gap-3 mb-6">
+        <img src="assets/img/logo.png" alt="Navora" class="w-10 h-10 rounded-xl bg-[var(--lime)] p-1 border border-[var(--ink)]">
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink-soft)]">Panel Pengelola</p>
+          <h1 class="font-display font-700 text-2xl">Admin Navora Digital</h1>
+        </div>
+      </div>
+
+      <div id="login-demo-note" class="hidden rounded-xl bg-[var(--lime)] border border-[var(--ink)] p-3 text-xs mb-5">
+                <strong>Mode Demo Lokal:</strong> Firebase belum dikonfigurasi di <code class="font-mono">js/config/firebase-config.js</code>. Masukkan email & password apa saja untuk mencoba dashboard.
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Email Admin</label>
+          <input type="email" id="login-email" required placeholder="admin@navora.id" class="navora-input">
+        </div>
+        <div>
+          <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Kata Sandi</label>
+          <input type="password" id="login-password" required placeholder="••••••••" class="navora-input">
+        </div>
+        <div id="login-error" class="hidden rounded-xl bg-red-100 border border-red-400 text-red-800 px-3.5 py-2 text-xs"></div>
+        <button type="submit" class="btn-lime w-full rounded-xl py-3 font-display font-700 text-sm">
+          Masuk ke Dashboard
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-black/10 text-center">
+        <a href="index.html" class="font-mono text-xs text-[var(--purple)] hover:underline">← Kembali ke Landing Page</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="dashboard-view" class="hidden relative z-10 min-h-screen pb-16">
+
+    <!-- Topbar -->
+    <header class="no-print max-w-7xl mx-auto px-4 pt-5">
+      <div class="glass-panel rounded-2xl px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3 text-white">
+          <img src="assets/img/logo.png" alt="Navora" class="w-9 h-9 rounded-xl bg-[var(--lime)] p-0.5">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-700 text-lg">Dashboard Admin</span>
+              <span id="db-mode-badge" class="font-mono text-[10px] px-2 py-0.5 rounded-full bg-[var(--lime)] text-[var(--ink)] font-700"></span>
+            </div>
+            <p id="admin-email-label" class="font-mono text-[11px] text-white/65"></p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <!-- Bell Notifikasi -->
+          <div class="relative">
+            <button id="btn-notif" type="button" class="relative rounded-xl px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 flex items-center gap-2 transition">
+              <svg class="w-4 h-4 text-[var(--lime)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <span class="text-xs font-medium hidden sm:inline">Notifikasi</span>
+              <span id="notif-badge" class="hidden min-w-[20px] h-5 px-1.5 rounded-full bg-[var(--lime)] text-[var(--ink)] font-mono text-[11px] font-700 flex items-center justify-center">0</span>
+            </button>
+
+            <!-- Dropdown Notifikasi -->
+            <div id="notif-drawer" class="hidden absolute right-0 mt-2 w-80 sm:w-96 cream-card rounded-2xl p-4 z-40">
+              <div class="flex items-center justify-between border-b border-black/10 pb-2.5 mb-3">
+                <h3 class="font-display font-700 text-sm">Notifikasi Pesanan Baru</h3>
+                <button id="btn-mark-all-read" type="button" class="font-mono text-[11px] text-[var(--purple)] hover:underline font-700">Tandai dibaca</button>
+              </div>
+              <div id="notif-list" class="space-y-2.5 max-h-72 overflow-y-auto">
+                <p class="text-xs text-[var(--ink-soft)] text-center py-4">Belum ada notifikasi baru.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="index.html" target="_blank" class="rounded-xl px-3.5 py-2 text-xs font-mono text-white/90 border border-white/25 hover:bg-white/10 transition">
+            Landing Page ↗
+          </a>
+          <button id="btn-logout" type="button" class="rounded-xl px-3.5 py-2 text-xs font-mono font-700 bg-red-500/20 text-red-200 border border-red-400/30 hover:bg-red-500/35 transition">
+            Keluar
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="no-print max-w-7xl mx-auto px-4 mt-6 space-y-6">
+
+      <!-- Statistik -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="cream-card rounded-2xl p-5">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-[var(--ink-soft)]">Total Pelanggan</p>
+          <p id="stat-total" class="font-display font-700 text-3xl mt-1">0</p>
+        </div>
+        <div class="cream-card rounded-2xl p-5 border-2 border-[var(--ink)] bg-[var(--lime)]">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-[var(--ink)]">Menunggu Cetak</p>
+          <p id="stat-pending" class="font-display font-700 text-3xl mt-1">0</p>
+        </div>
+        <div class="cream-card rounded-2xl p-5">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-[var(--ink-soft)]">Siap Diambil / Belum Bayar</p>
+          <p id="stat-unpaid" class="font-display font-700 text-3xl mt-1">0</p>
+        </div>
+        <div class="cream-card rounded-2xl p-5">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-[var(--ink-soft)]">Total Pendapatan</p>
+          <p id="stat-revenue" class="font-display font-700 text-2xl sm:text-3xl mt-1 text-[var(--purple)]">Rp 0</p>
+        </div>
+      </section>
+
+      <!-- Toolbar & Tabel Pelanggan -->
+      <section class="cream-card rounded-[28px] p-5 sm:p-7">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-black/10">
+          <div class="flex flex-wrap items-center gap-2" id="filter-tabs">
+            <button data-filter="all" class="filter-btn active-filter rounded-xl px-3.5 py-2 text-xs font-700 font-display bg-[var(--ink)] text-[var(--lime)]">Semua</button>
+            <button data-filter="pending_print" class="filter-btn rounded-xl px-3.5 py-2 text-xs font-700 font-display bg-black/5 hover:bg-black/10">Menunggu Cetak</button>
+            <button data-filter="printed" class="filter-btn rounded-xl px-3.5 py-2 text-xs font-700 font-display bg-black/5 hover:bg-black/10">Sudah Dicetak</button>
+            <button data-filter="completed" class="filter-btn rounded-xl px-3.5 py-2 text-xs font-700 font-display bg-black/5 hover:bg-black/10">Selesai & Lunas</button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <input type="search" id="search-input" placeholder="Cari nama, ID, jabatan..." class="navora-input w-full sm:w-64 text-xs">
+            <button id="btn-add-client" type="button" class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display shrink-0">
+              + Tambah Pelanggan
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabel -->
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-black/10 font-mono text-[11px] uppercase text-[var(--ink-soft)]">
+                <th class="py-3 pr-4">Pelanggan</th>
+                <th class="py-3 px-3">Kontak</th>
+                <th class="py-3 px-3">Status Cetak</th>
+                <th class="py-3 px-3">Pembayaran</th>
+                <th class="py-3 pl-3 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="clients-tbody" class="divide-y divide-black/10 text-sm">
+              <tr>
+                <td colspan="5" class="py-10 text-center text-xs text-[var(--ink-soft)] font-mono">Memuat data pelanggan...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- TOAST NOTIFIKASI REAL-TIME -->
+  <div id="toast-container" class="no-print fixed bottom-5 right-5 z-50 space-y-2.5 max-w-sm"></div>
+
+  <!-- MODAL TAMBAH / EDIT PELANGGAN -->
+  <div id="client-modal" class="no-print hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="cream-card rounded-[28px] p-6 sm:p-7 max-w-lg w-full my-8 rise">
+      <div class="flex items-center justify-between border-b border-black/10 pb-3 mb-5">
+        <h3 id="modal-title" class="font-display font-700 text-xl">Tambah Pelanggan</h3>
+        <button id="btn-close-client-modal" type="button" class="w-8 h-8 rounded-full bg-black/10 hover:bg-black/20 font-bold">×</button>
+      </div>
+
+      <form id="admin-client-form" class="space-y-3.5">
+        <input type="hidden" id="edit-mode" value="new">
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">Nama Lengkap *</label>
+            <input type="text" id="m-nama" required class="navora-input text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">Jabatan *</label>
+            <input type="text" id="m-jabatan" required class="navora-input text-xs">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">ID / Slug *</label>
+            <input type="text" id="m-slug" required class="navora-input font-mono text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">Foto Profil</label>
+            <input type="file" id="m-foto-file" accept="image/*" class="navora-input text-xs p-1.5">
+            <input type="hidden" id="m-foto-url">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">Email</label>
+            <input type="email" id="m-email" class="navora-input text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-700 uppercase mb-1">WhatsApp</label>
+            <input type="text" id="m-whatsapp" class="navora-input text-xs" placeholder="628...">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-2.5">
+          <input type="url" id="m-instagram" placeholder="Instagram URL" class="navora-input text-xs">
+          <input type="url" id="m-tiktok" placeholder="TikTok URL" class="navora-input text-xs">
+          <input type="url" id="m-linkedin" placeholder="LinkedIn URL" class="navora-input text-xs">
+          <input type="url" id="m-youtube" placeholder="YouTube URL" class="navora-input text-xs">
+          <input type="url" id="m-facebook" placeholder="Facebook URL" class="navora-input text-xs sm:col-span-2">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" id="btn-cancel-client-modal" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700">Batal</button>
+          <button type="submit" class="btn-lime rounded-xl px-5 py-2.5 text-xs font-700 font-display">Simpan Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PEMBAYARAN & SERAH TERIMA -->
+  <div id="payment-modal" class="no-print hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="cream-card rounded-[28px] p-6 max-w-md w-full rise">
+      <div class="flex items-center justify-between border-b border-black/10 pb-3 mb-4">
+        <h3 class="font-display font-700 text-xl">Pembayaran & Serah Terima</h3>
+        <button id="btn-close-payment" type="button" class="w-8 h-8 rounded-full bg-black/10 hover:bg-black/20 font-bold">×</button>
+      </div>
+      <form id="payment-form" class="space-y-4">
+        <input type="hidden" id="pay-client-id">
+        <div class="rounded-xl bg-white p-3.5 border border-black/15">
+          <p class="text-xs text-[var(--ink-soft)]">Pelanggan</p>
+          <p id="pay-client-name" class="font-display font-700 text-lg"></p>
+        </div>
+        <div>
+          <label class="block text-xs font-700 uppercase mb-1">Nominal Pembayaran (Rp)</label>
+          <input type="number" id="pay-amount" required min="0" step="1000" class="navora-input font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-700 uppercase mb-1">Metode Pembayaran</label>
+          <select id="pay-method" class="navora-input">
+            <option value="Tunai">Tunai (Cash)</option>
+            <option value="QRIS">QRIS</option>
+            <option value="Transfer">Transfer Bank</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-700 uppercase mb-1">Status Setelah Pembayaran</label>
+          <select id="pay-status-next" class="navora-input">
+            <option value="completed">Selesai & Diserahkan ke Client</option>
+            <option value="printed">Lunas (Menunggu Diambil)</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" id="btn-cancel-payment" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700">Batal</button>
+          <button type="submit" class="btn-lime rounded-xl px-5 py-2.5 text-xs font-700 font-display">Konfirmasi Lunas</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CETAK ID CARD FISIK -->
+  <div id="print-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="cream-card rounded-[28px] p-6 max-w-md w-full my-6">
+      <div class="no-print flex items-center justify-between border-b border-black/10 pb-3 mb-5">
+        <div>
+          <h3 class="font-display font-700 text-lg">Preview Cetak ID Card</h3>
+          <p class="text-[11px] text-[var(--ink-soft)]">Siap cetak ke printer kartu atau Save as PDF.</p>
+        </div>
+        <button id="btn-close-print" type="button" class="w-8 h-8 rounded-full bg-black/10 hover:bg-black/20 font-bold">×</button>
+      </div>
+
+      <!-- Area yang tercetak saat window.print() -->
+      <div id="print-area" class="flex justify-center">
+        <div class="id-card-print-sheet p-5">
+          <div class="flex items-center justify-between border-b-2 border-[var(--ink)] pb-2.5 mb-4">
+            <div class="flex items-center gap-2">
+              <img src="assets/img/logo.png" alt="Logo" class="w-6 h-6 rounded bg-[var(--lime)] p-0.5 border border-[var(--ink)]">
+              <span class="font-display font-700 text-sm tracking-tight">NAVORA DIGITAL</span>
+            </div>
+            <span id="print-id-tag" class="font-mono text-[10px] font-700 uppercase bg-[var(--lime)] px-2 py-0.5 rounded border border-[var(--ink)]">ID: -</span>
+          </div>
+
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-[var(--ink)] bg-[var(--lime)] shrink-0">
+              <img id="print-photo" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="min-w-0">
+              <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--ink-soft)] mb-0.5">Member Card</p>
+              <h4 id="print-name" class="font-display font-700 text-xl leading-tight break-words"></h4>
+              <p id="print-jabatan" class="inline-block font-700 text-xs split-underline mt-1"></p>
+            </div>
+          </div>
+
+          <div class="ticket-edge my-3"></div>
+
+          <div class="flex items-center justify-between gap-3 bg-white rounded-xl p-3 border border-black/20">
+            <div class="min-w-0">
+              <p class="font-mono text-[9px] uppercase tracking-wider text-[var(--ink-soft)]">Scan untuk Profil</p>
+              <p id="print-contact-info" class="text-[11px] font-medium truncate mt-0.5"></p>
+              <p class="font-mono text-[9px] text-[var(--purple)] mt-1">navora.digital/profil</p>
+            </div>
+            <div id="print-qr-box" class="bg-white p-1 rounded border border-black/15 shrink-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-print mt-5 flex flex-wrap gap-2.5 justify-end">
+        <button id="btn-mark-printed" type="button" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700">
+          Tandai Sudah Dicetak
+        </button>
+        <button id="btn-do-print" type="button" class="btn-lime rounded-xl px-5 py-2.5 text-xs font-700 font-display">
+          Cetak / Save PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/pages/admin.js"></script>
+</body>
+</html>

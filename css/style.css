@@ -10,10 +10,12 @@
 
 html,body{
   background: radial-gradient(circle at 15% 10%, var(--purple) 0%, var(--purple-deep) 70%);
+  background-attachment: fixed;
   font-family:'Inter',sans-serif;
   color:var(--ink);
   min-height:100%;
   overflow-x:hidden;
+  scroll-behavior:smooth;
 }
 
 .font-display{ font-family:'Space Grotesk', sans-serif; }
@@ -23,7 +25,7 @@ html,body{
 .deco{ position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
 .ghost-text{
   position:absolute; font-family:'Space Grotesk',sans-serif; font-weight:700;
-  color:rgba(255,255,255,0.07); white-space:nowrap; user-select:none;
+  color:rgba(255,255,255,0.06); white-space:nowrap; user-select:none;
 }
 .dotgrid{
   position:absolute; width:110px; height:110px;
@@ -50,6 +52,20 @@ html,body{
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
 }
 
+/* ---- Kartu cream umum (tanpa lubang lanyard) ---- */
+.cream-card{
+  background: var(--cream);
+  box-shadow: 0 24px 55px -15px rgba(15, 6, 35, 0.55);
+  border: 2px solid rgba(21,19,15,0.12);
+}
+
+.glass-panel{
+  background: rgba(25, 12, 54, 0.52);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
 /* Highlight garis bawah lime untuk teks (nama/jabatan) */
 .split-underline{
   background-image: linear-gradient(var(--lime), var(--lime));
@@ -67,18 +83,55 @@ html,body{
 }
 .icon-chip:hover{ transform: translateY(-2px) rotate(-3deg); background: var(--purple); }
 
-/* Tombol kontak */
-.btn-whatsapp{
+/* Tombol kontak & CTA */
+.btn-whatsapp, .btn-ink{
   background: var(--ink); color: var(--lime);
-  transition: transform .15s ease, opacity .15s ease;
+  transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
 }
-.btn-whatsapp:hover{ transform: translateY(-1px); opacity:.92; }
+.btn-whatsapp:hover, .btn-ink:hover{
+  transform: translateY(-2px);
+  opacity:.95;
+  box-shadow: 0 8px 20px rgba(21,19,15,0.22);
+}
+
+.btn-lime{
+  background: var(--lime); color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .14s ease, box-shadow .14s ease, background-color .14s ease;
+}
+.btn-lime:hover{
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: #e2ff5c;
+}
+.btn-lime:active{
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
 
 .btn-email{
   border:2px solid var(--ink);
   transition: transform .15s ease, background-color .15s ease;
 }
 .btn-email:hover{ background: var(--ink); color: var(--cream); transform: translateY(-1px); }
+
+/* Form input bergaya Navora */
+.navora-input{
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid rgba(21,19,15,0.22);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  color: var(--ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.navora-input:focus{
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.16);
+}
 
 /* Garis putus-putus ala tiket & barcode dekoratif */
 .ticket-edge{
@@ -88,8 +141,47 @@ html,body{
   display:inline-block; width:2.5px; margin-right:2px; background: var(--ink);
 }
 
-/* Animasi kartu muncul */
+/* Animasi */
 @keyframes rise{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform: translateY(0);} }
 .rise{ animation: rise .55s ease both; }
 
+@keyframes floatSlow{
+  0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg); }
+}
+.float-badge{ animation: floatSlow 5.5s ease-in-out infinite; }
+
 .hidden{ display:none !important; }
+
+/* ---- Styling Cetak ID Card Fisik ---- */
+.id-card-print-sheet{
+  width: 340px;
+  background: var(--cream);
+  border-radius: 22px;
+  border: 2px solid var(--ink);
+  overflow: hidden;
+  color: var(--ink);
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #print-area, #print-area * {
+    visibility: visible !important;
+  }
+  #print-area {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
