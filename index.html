@@ -23,59 +23,6 @@
   </head>
 
   <body class="relative min-h-screen text-[var(--ink)]">
-    <!-- Lapisan dekoratif -->
-    <div class="deco">
-      <p class="ghost-text text-[10rem] -top-8 -left-6 rotate-[-6deg]">
-        NAVORA
-      </p>
-      <p class="ghost-text text-[8rem] bottom-6 right-[-1.5rem] rotate-[4deg]">
-        DIGITAL
-      </p>
-      <div class="dotgrid top-16 left-8"></div>
-      <div class="dotgrid bottom-12 right-6"></div>
-
-      <svg
-        class="squiggle"
-        width="260"
-        height="120"
-        style="top: 34%; right: -40px"
-        viewBox="0 0 260 120"
-        fill="none"
-      >
-        <path
-          d="M2 60 C40 10, 70 110, 110 60 S180 10, 220 60 S258 100 258 100"
-          stroke="#D6FA3B"
-          stroke-width="3"
-          stroke-linecap="round"
-        />
-      </svg>
-
-      <svg
-        class="star hidden md:block"
-        width="84"
-        height="84"
-        style="top: 14%; left: 5%; opacity: 0.75"
-        viewBox="0 0 100 100"
-        fill="#D6FA3B"
-      >
-        <path
-          d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"
-        />
-      </svg>
-      <svg
-        class="star hidden lg:block"
-        width="44"
-        height="44"
-        style="bottom: 6%; left: 4%; opacity: 0.5"
-        viewBox="0 0 100 100"
-        fill="#D6FA3B"
-      >
-        <path
-          d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"
-        />
-      </svg>
-    </div>
-
     <!-- Navbar -->
     <header class="relative z-20 max-w-6xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
       <nav
@@ -217,18 +164,18 @@
           </ul>
         </div>
 
-        <!-- Hero Badge Preview (Top-anchored vertical lanyard seperti referensi) -->
-        <div class="lg:col-span-5 flex justify-center -mt-4 lg:-mt-16 overflow-visible">
+        <!-- Hero Badge Preview (Top-anchored vertical lanyard dengan fisika smooth) -->
+        <div class="lg:col-span-5 flex justify-center -mt-4 lg:-mt-20 overflow-visible">
           <div id="hero-lanyard" class="w-full max-w-[290px] sm:max-w-[315px] lanyard-rig">
             <!-- Tali lanyard memanjang dari atas -->
-            <div class="lanyard-strap rounded-t-sm" aria-hidden="true">
+            <div class="lanyard-strap" aria-hidden="true">
               <span>NAVORA</span>
               <span>DIGITAL</span>
             </div>
 
-            <!-- Klip besi pengait -->
+            <!-- Klip besi pengait masuk ke slot kartu -->
             <div class="lanyard-wrap">
-              <svg width="64" height="58" viewBox="0 0 64 58" fill="none" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="metalClipHero" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#F8FAFC"/>
@@ -240,8 +187,8 @@
                 <circle cx="32" cy="6" r="2.8" fill="url(#metalClipHero)"/>
                 <rect x="22" y="12" width="20" height="8" rx="4" fill="none" stroke="url(#metalClipHero)" stroke-width="3"/>
                 <rect x="27" y="19" width="10" height="10" rx="2.5" fill="url(#metalClipHero)" stroke="#475569" stroke-width="1"/>
-                <path d="M18 32 h28 a6 6 0 0 1 6 6 v8 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-8 a6 6 0 0 1 6 -6 z" fill="url(#metalClipHero)" stroke="#64748B" stroke-width="1.5"/>
-                <rect x="24" y="42" width="16" height="4" rx="2" fill="#475569"/>
+                <path d="M18 32 h28 a6 6 0 0 1 6 6 v10 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-10 a6 6 0 0 1 6 -6 z" fill="url(#metalClipHero)" stroke="#64748B" stroke-width="1.5"/>
+                <rect x="21" y="45" width="22" height="5" rx="2.5" fill="#475569"/>
               </svg>
             </div>
 
@@ -701,31 +648,10 @@
             >
               Live Preview Kartu Anda
             </p>
-            <div class="w-full max-w-[295px] sm:max-w-[330px] lanyard-rig">
-              <div class="lanyard-strap rounded-t-sm" aria-hidden="true">
-                <span>NAVORA</span>
-                <span>DIGITAL</span>
-              </div>
-              <div class="lanyard-wrap">
-                <svg width="64" height="58" viewBox="0 0 64 58" fill="none" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="metalClipPrev" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="#F8FAFC"/>
-                      <stop offset="50%" stop-color="#CBD5E1"/>
-                      <stop offset="100%" stop-color="#64748B"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="13" y="0" width="38" height="12" rx="3" fill="#15130F"/>
-                  <circle cx="32" cy="6" r="2.8" fill="url(#metalClipPrev)"/>
-                  <rect x="22" y="12" width="20" height="8" rx="4" fill="none" stroke="url(#metalClipPrev)" stroke-width="3"/>
-                  <rect x="27" y="19" width="10" height="10" rx="2.5" fill="url(#metalClipPrev)" stroke="#475569" stroke-width="1"/>
-                  <path d="M18 32 h28 a6 6 0 0 1 6 6 v8 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-8 a6 6 0 0 1 6 -6 z" fill="url(#metalClipPrev)" stroke="#64748B" stroke-width="1.5"/>
-                  <rect x="24" y="42" width="16" height="4" rx="2" fill="#475569"/>
-                </svg>
-              </div>
-              <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
+            <div class="w-full max-w-[310px] sm:max-w-[330px]">
+              <div class="cream-card rounded-[26px] overflow-hidden pt-6 pb-5 px-6">
                 <p
-                  class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2"
+                  class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mb-2"
                 >
                   Kartu Profil Digital
                 </p>

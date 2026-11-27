@@ -235,20 +235,50 @@ document.getElementById('btn-create-another').addEventListener('click', () => {
   form.classList.remove('hidden');
 });
 
-// Interaksi ayun/tilt halus pada kartu lanyard hero saat pointer bergerak
+// Fisika ayun lanyard 60fps yang halus (tanpa bertabrakan dengan CSS transition)
 const heroLanyard = document.getElementById('hero-lanyard');
 if (heroLanyard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  let targetZ = 0;
+  let targetY = 0;
+  let targetX = 0;
+  let curZ = 0;
+  let curY = 0;
+  let curX = 0;
+  let hovering = false;
+  const startTime = performance.now();
+
+  heroLanyard.addEventListener('pointerenter', () => {
+    hovering = true;
+  });
+
   heroLanyard.addEventListener('pointermove', (e) => {
     const rect = heroLanyard.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    heroLanyard.style.animation = 'none';
-    heroLanyard.style.transform = `perspective(900px) rotateZ(${(x * -4).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg) rotateX(${(y * -6).toFixed(2)}deg)`;
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    targetZ = nx * -3.5;
+    targetY = nx * 7;
+    targetX = ny * -5;
   });
+
   heroLanyard.addEventListener('pointerleave', () => {
-    heroLanyard.style.transform = '';
-    heroLanyard.style.animation = '';
+    hovering = false;
+    targetZ = 0;
+    targetY = 0;
+    targetX = 0;
   });
+
+  function animateLanyard(now) {
+    const t = (now - startTime) / 1000;
+    const idleZ = hovering ? 0 : Math.sin(t * 1.15) * 1.15;
+    curZ += (targetZ + idleZ - curZ) * 0.08;
+    curY += (targetY - curY) * 0.08;
+    curX += (targetX - curX) * 0.08;
+
+    heroLanyard.style.transform = `perspective(1000px) rotateZ(${curZ.toFixed(3)}deg) rotateY(${curY.toFixed(3)}deg) rotateX(${curX.toFixed(3)}deg)`;
+    requestAnimationFrame(animateLanyard);
+  }
+
+  requestAnimationFrame(animateLanyard);
 }
 
 boot();

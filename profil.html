@@ -16,25 +16,6 @@
 
 <body class="relative min-h-screen flex flex-col items-center justify-center px-4 py-12">
 
-  <!-- Lapisan dekoratif -->
-  <div class="deco">
-    <p class="ghost-text text-[9rem] -top-6 -left-6 rotate-[-6deg]">ID</p>
-    <p class="ghost-text text-[7rem] bottom-4 right-[-1.5rem] rotate-[4deg]">DIGITAL</p>
-    <div class="dotgrid top-8 left-8"></div>
-    <div class="dotgrid bottom-10 right-6"></div>
-
-    <svg class="squiggle" width="260" height="120" style="top:38%; right:-40px;" viewBox="0 0 260 120" fill="none">
-      <path d="M2 60 C40 10, 70 110, 110 60 S180 10, 220 60 S258 100 258 100" stroke="#D6FA3B" stroke-width="3" stroke-linecap="round"/>
-    </svg>
-
-    <svg class="star" width="90" height="90" style="top:14%; left:6%;" viewBox="0 0 100 100" fill="#D6FA3B">
-      <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
-    </svg>
-    <svg class="star" width="46" height="46" style="bottom:8%; left:14%; opacity:.7;" viewBox="0 0 100 100" fill="#D6FA3B">
-      <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
-    </svg>
-  </div>
-
   <!-- Quick nav pill -->
   <nav aria-label="Navigasi profil" class="relative z-10 mb-5 flex items-center gap-2 glass-panel rounded-full px-4 py-1.5 text-xs text-white/90">
     <a href="index.html" class="hover:text-[var(--lime)] font-medium transition">Buat Kartu Sendiri</a>
@@ -70,15 +51,15 @@
   </div>
 
   <!-- STATE: CARD -->
-  <div id="state-card" class="hidden relative z-10 w-full max-w-[340px] sm:max-w-sm rise lanyard-rig">
+  <div id="state-card" class="hidden relative z-10 w-full max-w-[340px] sm:max-w-sm rise lanyard-rig lanyard-rig--css">
 
     <!-- Tali & klip lanyard -->
-    <div class="lanyard-strap rounded-t-sm" aria-hidden="true">
+    <div class="lanyard-strap" aria-hidden="true">
       <span>NAVORA</span>
       <span>DIGITAL</span>
     </div>
     <div class="lanyard-wrap">
-      <svg width="64" height="58" viewBox="0 0 64 58" fill="none" aria-hidden="true">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
         <defs>
           <linearGradient id="metalClipProf" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#F8FAFC"/>
@@ -90,8 +71,8 @@
         <circle cx="32" cy="6" r="2.8" fill="url(#metalClipProf)"/>
         <rect x="22" y="12" width="20" height="8" rx="4" fill="none" stroke="url(#metalClipProf)" stroke-width="3"/>
         <rect x="27" y="19" width="10" height="10" rx="2.5" fill="url(#metalClipProf)" stroke="#475569" stroke-width="1"/>
-        <path d="M18 32 h28 a6 6 0 0 1 6 6 v8 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-8 a6 6 0 0 1 6 -6 z" fill="url(#metalClipProf)" stroke="#64748B" stroke-width="1.5"/>
-        <rect x="24" y="42" width="16" height="4" rx="2" fill="#475569"/>
+        <path d="M18 32 h28 a6 6 0 0 1 6 6 v10 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-10 a6 6 0 0 1 6 -6 z" fill="url(#metalClipProf)" stroke="#64748B" stroke-width="1.5"/>
+        <rect x="21" y="45" width="22" height="5" rx="2.5" fill="#475569"/>
       </svg>
     </div>
 

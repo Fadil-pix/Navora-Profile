@@ -9,8 +9,7 @@
 }
 
 html,body{
-  background: radial-gradient(circle at 15% 10%, var(--purple) 0%, var(--purple-deep) 70%);
-  background-attachment: fixed;
+  background-color: var(--purple-deep);
   font-family:'Inter',sans-serif;
   color:var(--ink);
   min-height:100%;
@@ -26,57 +25,49 @@ html,body{
 .font-600{ font-weight:600; }
 .font-700{ font-weight:700; }
 
-/* ---- Lapisan dekoratif latar belakang ---- */
-.deco{ position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
-.ghost-text{
-  position:absolute; font-family:'Space Grotesk',sans-serif; font-weight:700;
-  color:rgba(255,255,255,0.06); white-space:nowrap; user-select:none;
-}
-.dotgrid{
-  position:absolute; width:110px; height:110px;
-  background-image: radial-gradient(rgba(214,250,59,0.35) 2px, transparent 2px);
-  background-size: 16px 16px;
-}
-.squiggle{ position:absolute; opacity:0.55; }
-.star{ position:absolute; }
-
 /* ---- Klip lanyard di atas kartu ---- */
 .lanyard-rig{
   display: flex;
   flex-direction: column;
   align-items: center;
   transform-origin: 50% 0%;
-  animation: lanyardPendulum 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
-.lanyard-rig:hover{
-  animation-play-state: paused;
+
+.lanyard-rig--css{
+  animation: lanyardPendulum 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .lanyard-strap{
-  width: 34px;
-  height: 118px;
-  background: linear-gradient(90deg, #100E0B 0%, #24201B 48%, #100E0B 100%);
-  border-left: 1px solid rgba(214, 250, 59, 0.35);
-  border-right: 1px solid rgba(214, 250, 59, 0.35);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  width: 36px;
+  height: 138px;
+  background: linear-gradient(90deg, #12100C 0%, #27231D 48%, #12100C 100%);
+  border-left: 1.5px solid rgba(214, 250, 59, 0.4);
+  border-right: 1.5px solid rgba(214, 250, 59, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 10px 0;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 0;
   position: relative;
+}
+.lanyard-strap::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(109,40,217,0.45) 0%, rgba(18,16,12,0) 28%);
+  pointer-events: none;
 }
 .lanyard-strap span{
   font-family: 'JetBrains Mono', monospace;
   font-size: 7.5px;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   color: var(--lime);
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  opacity: 0.92;
+  opacity: 0.94;
   user-select: none;
 }
 
@@ -84,15 +75,15 @@ html,body{
   display:flex;
   justify-content:center;
   margin-top: -2px;
-  margin-bottom:-18px;
+  margin-bottom:-24px;
   position:relative;
   z-index:4;
   pointer-events:none;
 }
 
 @keyframes lanyardPendulum{
-  0%, 100% { transform: rotate(-1.3deg); }
-  50% { transform: rotate(1.3deg); }
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
 }
 
 /* ---- Kartu badge utama ---- */
@@ -251,7 +242,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   html, body {
     scroll-behavior: auto;
   }
-  .rise, .float-badge, .lanyard-swing, .lanyard-rig, .animate-pulse, .animate-ping, .animate-spin {
+  .rise, .float-badge, .lanyard-swing, .lanyard-rig, .lanyard-rig--css, .animate-pulse, .animate-ping, .animate-spin {
     animation: none !important;
   }
   * {
