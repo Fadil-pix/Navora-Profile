@@ -14,25 +14,28 @@ const LOCAL_KEY = 'navora_clients_db_v1';
 const DEMO_ADMIN_KEY = 'navora_demo_admin_session';
 const channel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('navora_sync') : null;
 
-export async function initBackend() {
-  if (initialized) return { isFirebase: isFirebaseConfigured() };
-
+export async function initBackend({ needAuth = false } = {}) {
   if (isFirebaseConfigured()) {
-    const [{ initializeApp }, firestore, authPkg] = await Promise.all([
-      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
-      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js'),
-      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js')
-    ]);
-    app = initializeApp(firebaseConfig);
-    db = firestore.getFirestore(app);
-    auth = authPkg.getAuth(app);
-    fsMod = firestore;
-    authMod = authPkg;
-  } else {
+    if (!initialized) {
+      const [{ initializeApp }, firestore] = await Promise.all([
+        import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+        import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js')
+      ]);
+      app = initializeApp(firebaseConfig);
+      db = firestore.getFirestore(app);
+      fsMod = firestore;
+      initialized = true;
+    }
+    if (needAuth && !authMod) {
+      const authPkg = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+      auth = authPkg.getAuth(app);
+      authMod = authPkg;
+    }
+  } else if (!initialized) {
     await seedLocalFromDataJson();
+    initialized = true;
   }
 
-  initialized = true;
   return { isFirebase: isFirebaseConfigured() };
 }
 
@@ -166,28 +169,35 @@ export async function checkSlugExists(id) {
 }
 
 export async function getClientById(id) {
-  await initBackend();
   const cleanId = (id || '').trim().toLowerCase();
   if (!cleanId) return null;
 
-  if (isFirebaseConfigured()) {
-    const snap = await fsMod.getDoc(fsMod.doc(db, 'clients', cleanId));
-    if (snap.exists()) return { id: snap.id, ...snap.data() };
-  } else {
-    const all = readLocalAll();
-    if (all[cleanId]) return all[cleanId];
+  // Mulai ambil data.json paralel sebagai fallback cepat jika Firestore lambat/offline
+  const fallbackPromise = fetch('data/data.json')
+    .then((res) => (res.ok ? res.json() : {}))
+    .catch(() => ({}));
+
+  try {
+    await initBackend();
+    if (isFirebaseConfigured()) {
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 3500)
+      );
+      const snap = await Promise.race([
+        fsMod.getDoc(fsMod.doc(db, 'clients', cleanId)),
+        timeout
+      ]);
+      if (snap.exists()) return { id: snap.id, ...snap.data() };
+    } else {
+      const all = readLocalAll();
+      if (all[cleanId]) return all[cleanId];
+    }
+  } catch (err) {
+    console.warn('Firestore read fallback ke data.json:', err?.message || err);
   }
 
-  // Fallback ke data.json untuk kompatibilitas profil bawaan
-  try {
-    const res = await fetch('data/data.json');
-    if (res.ok) {
-      const json = await res.json();
-      if (json[cleanId]) return { id: cleanId, ...json[cleanId] };
-    }
-  } catch {
-    // ignore
-  }
+  const json = await fallbackPromise;
+  if (json[cleanId]) return { id: cleanId, ...json[cleanId] };
   return null;
 }
 
@@ -313,7 +323,7 @@ export async function subscribeClients(callback) {
 // ---- Auth Admin ----
 
 export function observeAdminAuth(callback) {
-  initBackend().then(({ isFirebase }) => {
+  initBackend({ needAuth: true }).then(({ isFirebase }) => {
     if (isFirebase) {
       authMod.onAuthStateChanged(auth, (user) => {
         callback(user ? { email: user.email, uid: user.uid, isDemo: false } : null);
@@ -326,7 +336,7 @@ export function observeAdminAuth(callback) {
 }
 
 export async function loginAdmin(email, password) {
-  await initBackend();
+  await initBackend({ needAuth: true });
   if (isFirebaseConfigured()) {
     const cred = await authMod.signInWithEmailAndPassword(auth, email, password);
     return { email: cred.user.email, uid: cred.user.uid, isDemo: false };
@@ -339,7 +349,7 @@ export async function loginAdmin(email, password) {
 }
 
 export async function logoutAdmin() {
-  await initBackend();
+  await initBackend({ needAuth: true });
   if (isFirebaseConfigured()) {
     await authMod.signOut(auth);
   } else {
