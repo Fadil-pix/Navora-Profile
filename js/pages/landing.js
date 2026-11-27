@@ -235,4 +235,20 @@ document.getElementById('btn-create-another').addEventListener('click', () => {
   form.classList.remove('hidden');
 });
 
+// Interaksi ayun/tilt halus pada kartu lanyard hero saat pointer bergerak
+const heroLanyard = document.getElementById('hero-lanyard');
+if (heroLanyard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  heroLanyard.addEventListener('pointermove', (e) => {
+    const rect = heroLanyard.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    heroLanyard.style.animation = 'none';
+    heroLanyard.style.transform = `perspective(900px) rotateZ(${(x * -4).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg) rotateX(${(y * -6).toFixed(2)}deg)`;
+  });
+  heroLanyard.addEventListener('pointerleave', () => {
+    heroLanyard.style.transform = '';
+    heroLanyard.style.animation = '';
+  });
+}
+
 boot();

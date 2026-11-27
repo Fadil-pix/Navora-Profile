@@ -104,7 +104,7 @@
             >Buat Kartu</a
           >
           <a
-            href="profil.html?id=fadil"
+            href="profil.html?id=xav"
             class="hover:text-[var(--lime)] transition"
             >Contoh Profil</a
           >
@@ -186,7 +186,7 @@
               Input Data Sekarang
             </a>
             <a
-              href="profil.html?id=fadil"
+              href="profil.html?id=xav"
               class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px] w-full sm:w-auto"
             >
               Lihat Demo Kartu
@@ -217,54 +217,50 @@
           </ul>
         </div>
 
-        <!-- Hero Badge Preview -->
-        <div class="lg:col-span-5 flex justify-center pt-2">
-          <div class="w-full max-w-[295px] sm:max-w-[320px] lanyard-swing">
+        <!-- Hero Badge Preview (Top-anchored vertical lanyard seperti referensi) -->
+        <div class="lg:col-span-5 flex justify-center -mt-4 lg:-mt-16 overflow-visible">
+          <div id="hero-lanyard" class="w-full max-w-[290px] sm:max-w-[315px] lanyard-rig">
+            <!-- Tali lanyard memanjang dari atas -->
+            <div class="lanyard-strap rounded-t-sm" aria-hidden="true">
+              <span>NAVORA</span>
+              <span>DIGITAL</span>
+            </div>
+
+            <!-- Klip besi pengait -->
             <div class="lanyard-wrap">
-              <svg width="110" height="168" viewBox="0 0 110 168" fill="none" aria-hidden="true">
+              <svg width="64" height="58" viewBox="0 0 64 58" fill="none" aria-hidden="true">
                 <defs>
-                  <linearGradient id="strapGradHero" x1="35" y1="0" x2="75" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#E5FF66"/>
-                    <stop offset="55%" stop-color="#D6FA3B"/>
-                    <stop offset="100%" stop-color="#A9CC1F"/>
-                  </linearGradient>
-                  <linearGradient id="metalGradHero" x1="0" y1="0" x2="1" y2="1">
+                  <linearGradient id="metalClipHero" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#F8FAFC"/>
                     <stop offset="50%" stop-color="#CBD5E1"/>
-                    <stop offset="100%" stop-color="#94A3B8"/>
+                    <stop offset="100%" stop-color="#64748B"/>
                   </linearGradient>
                 </defs>
-                <!-- Tali lanyard atas -->
-                <path d="M22 0 L42 92 L68 92 L88 0 Z" fill="url(#strapGradHero)"/>
-                <path d="M26 0 L44 92 M84 0 L66 92" stroke="#99BC15" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-                <!-- Jahitan lipatan lanyard -->
-                <rect x="39" y="78" width="32" height="18" rx="4" fill="#15130F"/>
-                <circle cx="55" cy="87" r="3.2" fill="url(#metalGradHero)"/>
-                <!-- Ring D + Swivel -->
-                <rect x="44" y="96" width="22" height="10" rx="5" fill="none" stroke="url(#metalGradHero)" stroke-width="3.5"/>
-                <rect x="50" y="105" width="10" height="13" rx="3" fill="url(#metalGradHero)" stroke="#64748B" stroke-width="1.2"/>
-                <!-- Pengait besi masuk ke lubang kartu -->
-                <path d="M55 118 C46 118 42 126 42 135 C42 145 48 153 55 153 C62 153 68 145 68 135 C68 128 63 122 57 121" fill="none" stroke="url(#metalGradHero)" stroke-width="4.5" stroke-linecap="round"/>
-                <rect x="36" y="144" width="38" height="14" rx="5" fill="url(#metalGradHero)" stroke="#64748B" stroke-width="1.5"/>
+                <rect x="13" y="0" width="38" height="12" rx="3" fill="#15130F"/>
+                <circle cx="32" cy="6" r="2.8" fill="url(#metalClipHero)"/>
+                <rect x="22" y="12" width="20" height="8" rx="4" fill="none" stroke="url(#metalClipHero)" stroke-width="3"/>
+                <rect x="27" y="19" width="10" height="10" rx="2.5" fill="url(#metalClipHero)" stroke="#475569" stroke-width="1"/>
+                <path d="M18 32 h28 a6 6 0 0 1 6 6 v8 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-8 a6 6 0 0 1 6 -6 z" fill="url(#metalClipHero)" stroke="#64748B" stroke-width="1.5"/>
+                <rect x="24" y="42" width="16" height="4" rx="2" fill="#475569"/>
               </svg>
             </div>
-            <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-5 sm:px-6">
+
+            <a href="profil.html?id=xav" class="block w-full badge rounded-[26px] overflow-hidden pt-8 pb-5 px-5 sm:px-6 hover:shadow-2xl transition-shadow">
               <p
-                class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2"
+                class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-4 mb-2"
               >
                 Kartu Profil Digital
               </p>
               <h2 class="font-display text-2xl text-center mb-4">
-                <span class="font-500">Muhammad</span>
-                <span class="font-700">Fadil</span>
+                <span class="font-500">Xavier</span>
+                <span class="font-700">Avarx</span>
               </h2>
               <div
                 class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3 border border-black/10"
               >
                 <img
-                  src="assets/img/fadil.jpeg"
-                  onerror="this.src='assets/img/man.jpg'"
-                  alt="Contoh kartu profil Muhammad Fadil"
+                  src="assets/img/man.jpg"
+                  alt="Contoh kartu profil Xavier Avarx"
                   width="320"
                   height="320"
                   fetchpriority="high"
@@ -273,7 +269,7 @@
               </div>
               <div class="text-center mb-3">
                 <span class="inline-block font-700 text-xs split-underline px-1"
-                  >Data Analyst</span
+                  >CEO of Google</span
                 >
               </div>
               <div class="ticket-edge pt-3 flex items-center justify-between">
@@ -289,10 +285,10 @@
                 </div>
                 <span
                   class="font-mono text-[10px] text-[var(--ink-soft)] uppercase"
-                  >ID: fadil</span
+                  >ID: xav</span
                 >
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -705,29 +701,26 @@
             >
               Live Preview Kartu Anda
             </p>
-            <div class="w-full max-w-[295px] sm:max-w-[330px] lanyard-swing">
+            <div class="w-full max-w-[295px] sm:max-w-[330px] lanyard-rig">
+              <div class="lanyard-strap rounded-t-sm" aria-hidden="true">
+                <span>NAVORA</span>
+                <span>DIGITAL</span>
+              </div>
               <div class="lanyard-wrap">
-                <svg width="110" height="168" viewBox="0 0 110 168" fill="none" aria-hidden="true">
+                <svg width="64" height="58" viewBox="0 0 64 58" fill="none" aria-hidden="true">
                   <defs>
-                    <linearGradient id="strapGradPrev" x1="35" y1="0" x2="75" y2="100" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#E5FF66"/>
-                      <stop offset="55%" stop-color="#D6FA3B"/>
-                      <stop offset="100%" stop-color="#A9CC1F"/>
-                    </linearGradient>
-                    <linearGradient id="metalGradPrev" x1="0" y1="0" x2="1" y2="1">
+                    <linearGradient id="metalClipPrev" x1="0" y1="0" x2="1" y2="1">
                       <stop offset="0%" stop-color="#F8FAFC"/>
                       <stop offset="50%" stop-color="#CBD5E1"/>
-                      <stop offset="100%" stop-color="#94A3B8"/>
+                      <stop offset="100%" stop-color="#64748B"/>
                     </linearGradient>
                   </defs>
-                  <path d="M22 0 L42 92 L68 92 L88 0 Z" fill="url(#strapGradPrev)"/>
-                  <path d="M26 0 L44 92 M84 0 L66 92" stroke="#99BC15" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-                  <rect x="39" y="78" width="32" height="18" rx="4" fill="#15130F"/>
-                  <circle cx="55" cy="87" r="3.2" fill="url(#metalGradPrev)"/>
-                  <rect x="44" y="96" width="22" height="10" rx="5" fill="none" stroke="url(#metalGradPrev)" stroke-width="3.5"/>
-                  <rect x="50" y="105" width="10" height="13" rx="3" fill="url(#metalGradPrev)" stroke="#64748B" stroke-width="1.2"/>
-                  <path d="M55 118 C46 118 42 126 42 135 C42 145 48 153 55 153 C62 153 68 145 68 135 C68 128 63 122 57 121" fill="none" stroke="url(#metalGradPrev)" stroke-width="4.5" stroke-linecap="round"/>
-                  <rect x="36" y="144" width="38" height="14" rx="5" fill="url(#metalGradPrev)" stroke="#64748B" stroke-width="1.5"/>
+                  <rect x="13" y="0" width="38" height="12" rx="3" fill="#15130F"/>
+                  <circle cx="32" cy="6" r="2.8" fill="url(#metalClipPrev)"/>
+                  <rect x="22" y="12" width="20" height="8" rx="4" fill="none" stroke="url(#metalClipPrev)" stroke-width="3"/>
+                  <rect x="27" y="19" width="10" height="10" rx="2.5" fill="url(#metalClipPrev)" stroke="#475569" stroke-width="1"/>
+                  <path d="M18 32 h28 a6 6 0 0 1 6 6 v8 a4 4 0 0 1 -4 4 h-32 a4 4 0 0 1 -4 -4 v-8 a6 6 0 0 1 6 -6 z" fill="url(#metalClipPrev)" stroke="#64748B" stroke-width="1.5"/>
+                  <rect x="24" y="42" width="16" height="4" rx="2" fill="#475569"/>
                 </svg>
               </div>
               <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
