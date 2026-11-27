@@ -1,33 +1,17 @@
-// ============================================================================
-// Konfigurasi Firebase Navora Digital
-// ============================================================================
-// Cara menghubungkan ke Firebase:
-// 1. Buka https://console.firebase.google.com/ dan buat project baru.
-// 2. Aktifkan Firestore Database (pilih Start in test mode atau atur Rules).
-// 3. Aktifkan Authentication -> Sign-in method -> Email/Password, lalu buat akun Admin.
-// 4. Buka Project Settings -> Your apps -> Web app, salin firebaseConfig ke bawah ini.
-// ============================================================================
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAFXqnWGUdOBzHtRyvISywEgGqijNzEluk",
+  authDomain: "navora-54d04.firebaseapp.com",
+  projectId: "navora-54d04",
+  storageBucket: "navora-54d04.firebasestorage.app",
+  messagingSenderId: "929804536775",
+  appId: "1:929804536775:web:fff4df49e0c25d7f2727e2",
 };
 
-export const APP_CONFIG = {
-  brandName: "Navora Digital",
-  defaultCardPrice: 25000, // Harga default cetak ID Card (Rp)
-  currency: "IDR"
-};
-
-export function isFirebaseConfigured() {
-  return (
-    firebaseConfig.apiKey &&
-    firebaseConfig.apiKey !== "YOUR_API_KEY" &&
-    firebaseConfig.projectId &&
-    firebaseConfig.projectId !== "YOUR_PROJECT_ID"
-  );
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
