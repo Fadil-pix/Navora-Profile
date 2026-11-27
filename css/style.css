@@ -153,6 +153,34 @@ html,body{
 
 .hidden{ display:none !important; }
 
+/* ---- Aksesibilitas & Interaksi (R-32, R-39) ---- */
+a[href], button, select, summary, label[for], [role="button"] {
+  cursor: pointer;
+}
+button:disabled, input:disabled, select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 2px;
+}
+.cream-card a:focus-visible, .cream-card button:focus-visible, .cream-card input:focus-visible, .cream-card select:focus-visible {
+  outline-color: var(--purple);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    scroll-behavior: auto;
+  }
+  .rise, .float-badge, .animate-pulse, .animate-ping, .animate-spin {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* ---- Styling Cetak ID Card Fisik ---- */
 .id-card-print-sheet{
   width: 340px;

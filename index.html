@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navora Digital — Kartu Profil Digital & ID Card QR</title>
+<title>Navora Digital | Kartu Profil Digital & ID Card QR</title>
 <script>
   // Kompatibilitas tautan lama (?id=...) agar langsung mengarah ke halaman profil
   if (new URLSearchParams(window.location.search).has('id')) {
@@ -69,7 +69,7 @@
   <div id="demo-banner" class="hidden relative z-20 max-w-6xl mx-auto px-4 mt-4">
     <div class="rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] px-4 py-2.5 text-xs font-medium flex flex-wrap items-center justify-between gap-2">
       <span><strong>Mode Demo Lokal Aktif:</strong> Data tersimpan di browser ini. Isi <code class="font-mono bg-black/10 px-1.5 py-0.5 rounded">js/config/firebase-config.js</code> untuk menghubungkan ke Firebase Firestore.</span>
-      <a href="admin.html" class="font-mono font-700 underline">Buka Admin →</a>
+      <a href="admin.html" class="font-mono font-700 underline">Buka Admin</a>
     </div>
   </div>
 
@@ -78,46 +78,40 @@
     <!-- HERO SECTION -->
     <section class="pt-10 pb-14 lg:py-16 grid lg:grid-cols-12 gap-10 items-center">
       <div class="lg:col-span-7 text-white rise">
-        <div class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-3.5 py-1.5 mb-5">
-          <span class="w-2 h-2 rounded-full bg-[var(--lime)] animate-pulse"></span>
-          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--lime)]">Kartu Profil Digital + ID Card QR</span>
-        </div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--lime)] mb-3">Kartu Profil Digital & ID Card QR</p>
 
         <h1 class="font-display font-700 text-4xl sm:text-5xl lg:text-6xl leading-[1.03] tracking-tight mb-5">
           Satu Kartu Cerdas,<br>
           <span class="split-underline text-[var(--ink)] bg-[var(--lime)] px-2 rounded-lg inline-block mt-1">Semua Kontakmu.</span>
         </h1>
 
-        <p class="text-white/80 text-base sm:text-lg leading-relaxed max-w-xl mb-8">
-          Isi data dirimu sendiri dalam 1 menit. Website profil pribadimu langsung dibuat otomatis lengkap dengan <strong class="text-[var(--lime)]">QR Code</strong>, dan admin langsung menerima notifikasi untuk mencetak ID Card fisikmu.
+        <p class="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl mb-8">
+          Isi data dirimu sendiri langsung dari halaman ini. Website profil pribadimu otomatis dibuat lengkap dengan <strong class="text-[var(--lime)]">QR Code</strong>, dan admin langsung menerima notifikasi untuk mencetak ID Card fisikmu.
         </p>
 
         <div class="flex flex-wrap items-center gap-3.5">
-          <a href="#buat-kartu" class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center gap-2">
-            <span>Input Data Sekarang</span>
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
+          <a href="#buat-kartu" class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center justify-center min-h-[44px]">
+            Input Data Sekarang
           </a>
-          <a href="profil.html?id=fadil" class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center gap-2">
-            <span>Lihat Demo Kartu</span>
+          <a href="profil.html?id=fadil" class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px]">
+            Lihat Demo Kartu
           </a>
         </div>
 
-        <div class="mt-9 grid grid-cols-3 gap-4 max-w-md pt-6 border-t border-white/15">
-          <div>
-            <p class="font-display font-700 text-2xl text-[var(--lime)]">1 Menit</p>
-            <p class="text-xs text-white/70">Web & QR langsung jadi</p>
-          </div>
-          <div>
-            <p class="font-display font-700 text-2xl text-[var(--lime)]">Real-Time</p>
-            <p class="text-xs text-white/70">Notifikasi cetak admin</p>
-          </div>
-          <div>
-            <p class="font-display font-700 text-2xl text-[var(--lime)]">Rp 25rb</p>
-            <p class="text-xs text-white/70">Termasuk ID Card fisik</p>
-          </div>
-        </div>
+        <ul class="mt-9 grid sm:grid-cols-3 gap-4 max-w-lg pt-6 border-t border-white/15 text-xs text-white/80">
+          <li>
+            <p class="font-display font-700 text-base text-[var(--lime)]">Web Otomatis</p>
+            <p>Tautan profil aktif setelah kirim data</p>
+          </li>
+          <li>
+            <p class="font-display font-700 text-base text-[var(--lime)]">QR Code PNG</p>
+            <p>Langsung tampil dan siap diunduh</p>
+          </li>
+          <li>
+            <p class="font-display font-700 text-base text-[var(--lime)]">Cetak Rp 25.000</p>
+            <p>ID Card fisik diproses admin</p>
+          </li>
+        </ul>
       </div>
 
       <!-- Hero Badge Preview -->
@@ -136,7 +130,7 @@
             <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2">Kartu Profil Digital</p>
             <h2 class="font-display text-2xl text-center mb-4"><span class="font-500">Muhammad</span> <span class="font-700">Fadil</span></h2>
             <div class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3">
-              <img src="assets/img/fadil.jpeg" alt="Contoh Profil" class="w-full h-full object-cover">
+              <img src="assets/img/fadil.jpeg" alt="Contoh kartu profil Muhammad Fadil" width="320" height="320" fetchpriority="high" class="w-full h-full object-cover">
             </div>
             <div class="text-center mb-3">
               <span class="inline-block font-700 text-xs split-underline px-1">Data Analyst</span>
@@ -154,28 +148,53 @@
       </div>
     </section>
 
-    <!-- CARA KERJA -->
+    <!-- ALUR LAYANAN (Komposisi asimetris, non-template) -->
     <section id="cara-kerja" class="py-10">
-      <div class="text-center text-white mb-8">
-        <p class="font-mono text-xs tracking-[0.25em] uppercase text-[var(--lime)] mb-2">Alur Otomatis</p>
-        <h2 class="font-display font-700 text-3xl sm:text-4xl">Cara Kerja Navora Digital</h2>
-      </div>
+      <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+        <div class="lg:col-span-7 cream-card rounded-[28px] p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <p class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)] font-700 mb-2">Alur Layanan</p>
+            <h2 class="font-display font-700 text-2xl sm:text-3xl mb-6">Dari Input Data ke ID Card Fisik</h2>
+          </div>
 
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="cream-card rounded-3xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-[var(--ink)] text-[var(--lime)] font-mono font-700 flex items-center justify-center mb-4">01</div>
-          <h3 class="font-display font-700 text-xl mb-2">Input Data Mandiri</h3>
-          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Isi nama, jabatan, foto profil, WhatsApp, email, dan media sosialmu langsung melalui form di bawah.</p>
+          <ol class="space-y-4 border-l-2 border-[var(--ink)] pl-5">
+            <li>
+              <p class="font-display font-700 text-base">Isi Data & Foto Mandiri</p>
+              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Masukkan nama, jabatan, kontak WhatsApp, email, dan media sosial. Pratinjau kartu langsung mengikuti ketikanmu.</p>
+            </li>
+            <li>
+              <p class="font-display font-700 text-base">Halaman Web & QR Code Langsung Terbuat</p>
+              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Data tersimpan ke Firebase dan tautan profil serta QR Code unik langsung siap dibagikan atau diunduh.</p>
+            </li>
+            <li>
+              <p class="font-display font-700 text-base">Notifikasi Admin, Cetak & Pembayaran</p>
+              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Begitu QR Code tampil, admin mendapat notifikasi untuk mencetak kartu fisik, menerima pembayaran, dan menyerahkan kartu.</p>
+            </li>
+          </ol>
         </div>
-        <div class="cream-card rounded-3xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-[var(--purple)] text-[var(--lime)] font-mono font-700 flex items-center justify-center mb-4">02</div>
-          <h3 class="font-display font-700 text-xl mb-2">Web & QR Code Otomatis</h3>
-          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Halaman website profilmu langsung aktif dan QR Code unik otomatis terbuat serta bisa diunduh.</p>
-        </div>
-        <div class="cream-card rounded-3xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] font-mono font-700 flex items-center justify-center mb-4">03</div>
-          <h3 class="font-display font-700 text-xl mb-2">Notifikasi Admin & Cetak</h3>
-          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">Saat QR Code muncul, admin mendapat notifikasi real-time untuk mencetak ID Card & proses pembayaran.</p>
+
+        <div class="lg:col-span-5 rounded-[28px] bg-[var(--ink)] text-[var(--cream)] border-2 border-[var(--lime)] p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <p class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--lime)] mb-2">Kelengkapan</p>
+            <h3 class="font-display font-700 text-2xl mb-4">Yang Kamu Dapatkan</h3>
+            <ul class="space-y-3 text-sm text-white/85">
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-[var(--lime)] font-700">01</span>
+                <span>Halaman web profil pribadi dengan tombol WhatsApp, Email, media sosial, dan ekspor kontak (.vcf).</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-[var(--lime)] font-700">02</span>
+                <span>QR Code beresolusi tinggi (PNG) yang mengarah ke halaman profilmu.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-[var(--lime)] font-700">03</span>
+                <span>ID Card fisik cetak dari meja admin (Rp 25.000 saat pengambilan).</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#buat-kartu" class="btn-lime rounded-xl px-5 py-3 text-xs font-700 font-display text-center mt-6">
+            Mulai Isi Form di Bawah
+          </a>
         </div>
       </div>
     </section>
@@ -297,10 +316,10 @@
                 </div>
 
                 <div class="flex flex-wrap gap-2.5 pt-1">
-                  <a id="btn-open-profile" href="#" target="_blank" class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display inline-flex items-center gap-1.5">
-                    Buka Halaman Profil →
+                  <a id="btn-open-profile" href="#" target="_blank" rel="noopener" class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display inline-flex items-center justify-center min-h-[44px]">
+                    Buka Halaman Profil
                   </a>
-                  <button type="button" id="btn-download-qr" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700">
+                  <button type="button" id="btn-download-qr" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700 min-h-[44px]">
                     Download QR (PNG)
                   </button>
                 </div>
@@ -351,8 +370,8 @@
     </section>
   </main>
 
-  <footer class="relative z-10 border-t border-white/15 py-6 text-center text-xs text-white/60 font-mono">
-    © 2026 Navora Digital — Kartu Profil Digital & ID Card QR
+  <footer class="relative z-10 border-t border-white/15 py-6 text-center text-xs text-white/75 font-mono">
+    © 2026 Navora Digital | Kartu Profil Digital & ID Card QR
   </footer>
 
   <script type="module" src="js/pages/landing.js"></script>

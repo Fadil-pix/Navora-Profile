@@ -1,4 +1,5 @@
 # Firebase & Secrets
+js/config/firebase-config.js
 *-firebase-adminsdk-*.json
 serviceAccountKey.json
 .env

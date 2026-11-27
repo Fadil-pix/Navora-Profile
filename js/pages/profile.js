@@ -35,7 +35,7 @@ async function loadProfile() {
 }
 
 function renderProfile(p, id) {
-  document.title = `${p.nama || id} — Navora Digital`;
+  document.title = `${p.nama || id} | Navora Digital`;
   document.getElementById('id-badge').innerHTML = `ID<br>${id}`;
 
   const photo = document.getElementById('profile-photo');
@@ -116,6 +116,12 @@ qrModal?.addEventListener('click', (e) => {
   if (e.target === qrModal) qrModal.classList.add('hidden');
 });
 
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && qrModal && !qrModal.classList.contains('hidden')) {
+    qrModal.classList.add('hidden');
+  }
+});
+
 document.getElementById('btn-dl-profile-qr')?.addEventListener('click', () => {
   const canvas = document.querySelector('#profile-qr-box canvas');
   const img = document.querySelector('#profile-qr-box img');
@@ -150,4 +156,8 @@ document.getElementById('btn-save-vcard')?.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-document.addEventListener('DOMContentLoaded', loadProfile);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadProfile);
+} else {
+  loadProfile();
+}

@@ -1,19 +1,20 @@
 // ============================================================================
-// Konfigurasi Firebase Navora Digital
+// Template Konfigurasi Firebase Navora Digital
+// Salin file ini menjadi js/config/firebase-config.js untuk pengembangan lokal.
 // ============================================================================
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyAFXqnWGUdOBzHtRyvISywEgGqijNzEluk",
-  authDomain: "navora-54d04.firebaseapp.com",
-  projectId: "navora-54d04",
-  storageBucket: "navora-54d04.firebasestorage.app",
-  messagingSenderId: "929804536775",
-  appId: "1:929804536775:web:fff4df49e0c25d7f2727e2"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 export const APP_CONFIG = {
   brandName: "Navora Digital",
-  defaultCardPrice: 25000, // Harga default cetak ID Card (Rp)
+  defaultCardPrice: 25000,
   currency: "IDR"
 };
 

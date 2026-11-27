@@ -172,7 +172,7 @@ function renderNotifications() {
       <div class="rounded-xl bg-white p-3 border border-black/15 flex items-center justify-between gap-2">
         <div class="min-w-0">
           <p class="font-display font-700 text-xs truncate">${escapeHtml(c.nama)} <span class="font-mono text-[10px] text-[var(--purple)]">(${escapeHtml(c.id)})</span></p>
-          <p class="text-[11px] text-[var(--ink-soft)]">QR Code siap — Menunggu cetak</p>
+          <p class="text-[11px] text-[var(--ink-soft)]">QR Code siap, menunggu cetak</p>
         </div>
         <button data-action="print" data-id="${escapeHtml(c.id)}" class="btn-lime rounded-lg px-2.5 py-1.5 text-[11px] font-700 shrink-0">Cetak</button>
       </div>
@@ -466,5 +466,13 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  clientModal?.classList.add('hidden');
+  paymentModal?.classList.add('hidden');
+  printModal?.classList.add('hidden');
+  document.getElementById('notif-drawer')?.classList.add('hidden');
+});
 
 boot();
