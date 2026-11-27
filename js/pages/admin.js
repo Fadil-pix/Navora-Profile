@@ -218,6 +218,7 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 
 function renderTable() {
   const tbody = document.getElementById('clients-tbody');
+  const mobileList = document.getElementById('clients-mobile-list');
   const filtered = allClients.filter((c) => {
     if (currentFilter !== 'all' && c.status !== currentFilter) return false;
     if (searchQuery) {
@@ -228,8 +229,49 @@ function renderTable() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" class="py-10 text-center text-xs text-[var(--ink-soft)] font-mono">Tidak ada data pelanggan yang cocok.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="py-10 text-center text-xs text-[var(--ink-soft)]">Tidak ada data pelanggan yang cocok.</td></tr>`;
+    if (mobileList) {
+      mobileList.innerHTML = `<p class="py-8 text-center text-xs text-[var(--ink-soft)]">Tidak ada data pelanggan yang cocok.</p>`;
+    }
     return;
+  }
+
+  if (mobileList) {
+    mobileList.innerHTML = filtered
+      .map((c) => {
+        const statusPill = getStatusPill(c.status);
+        const payPill =
+          c.paymentStatus === 'paid'
+            ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-green-100 text-green-800 border border-green-300">Lunas · ${formatRupiah(c.paymentAmount)}</span>`
+            : `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-amber-100 text-amber-900 border border-amber-300">Belum Bayar</span>`;
+
+        return `
+          <div class="rounded-2xl bg-white border border-black/15 p-4 space-y-3">
+            <div class="flex items-center gap-3">
+              <img src="${escapeHtml(c.foto || 'assets/img/man.jpg')}" alt="${escapeHtml(c.nama)}" class="w-12 h-12 rounded-xl object-cover border border-black/20 bg-[var(--lime)] shrink-0">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1.5">
+                  <p class="font-ui font-bold text-sm truncate">${escapeHtml(c.nama)}</p>
+                  ${c.adminRead === false ? '<span class="w-2 h-2 rounded-full bg-[var(--purple)]" title="Pesanan Baru"></span>' : ''}
+                </div>
+                <p class="text-xs text-[var(--ink-soft)] truncate">${escapeHtml(c.jabatan)}</p>
+                <p class="font-mono text-[10px] text-[var(--purple)]">ID: ${escapeHtml(c.id)}</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1.5">${statusPill}${payPill}</div>
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <button data-action="print" data-id="${escapeHtml(c.id)}" class="btn-lime rounded-xl px-3 py-2.5 text-xs font-700 min-h-[42px]">Cetak ID</button>
+              <button data-action="pay" data-id="${escapeHtml(c.id)}" class="btn-ink rounded-xl px-3 py-2.5 text-xs font-700 min-h-[42px]">Bayar</button>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <a href="${escapeHtml(getProfileUrl(c.id))}" target="_blank" rel="noopener" class="rounded-xl px-2 py-2 text-xs font-600 border border-black/20 text-center hover:bg-black/5">Web</a>
+              <button data-action="edit" data-id="${escapeHtml(c.id)}" class="rounded-xl px-2 py-2 text-xs font-600 border border-black/20 hover:bg-black/5">Edit</button>
+              <button data-action="delete" data-id="${escapeHtml(c.id)}" class="rounded-xl px-2 py-2 text-xs font-600 text-red-700 border border-red-300 hover:bg-red-50">Hapus</button>
+            </div>
+          </div>
+        `;
+      })
+      .join('');
   }
 
   tbody.innerHTML = filtered

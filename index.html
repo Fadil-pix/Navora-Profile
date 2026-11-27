@@ -51,10 +51,10 @@
       </svg>
 
       <svg
-        class="star"
+        class="star hidden md:block"
         width="84"
         height="84"
-        style="top: 14%; left: 5%; opacity: 0.85"
+        style="top: 14%; left: 5%; opacity: 0.75"
         viewBox="0 0 100 100"
         fill="#D6FA3B"
       >
@@ -63,10 +63,10 @@
         />
       </svg>
       <svg
-        class="star"
+        class="star hidden lg:block"
         width="44"
         height="44"
-        style="bottom: 10%; left: 12%; opacity: 0.65"
+        style="bottom: 6%; left: 4%; opacity: 0.5"
         viewBox="0 0 100 100"
         fill="#D6FA3B"
       >
@@ -77,17 +77,19 @@
     </div>
 
     <!-- Navbar -->
-    <header class="relative z-20 max-w-6xl mx-auto px-4 pt-5">
+    <header class="relative z-20 max-w-6xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
       <nav
-        class="glass-panel rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4"
+        class="glass-panel rounded-2xl px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4"
       >
-        <a href="index.html" class="flex items-center gap-2.5 text-white">
+        <a href="index.html" class="flex items-center gap-2 text-white min-w-0">
           <img
             src="assets/img/logo.png"
             alt="Navora Logo"
-            class="w-8 h-8 rounded-lg object-cover bg-[var(--lime)] p-0.5"
+            width="32"
+            height="32"
+            class="w-8 h-8 rounded-lg object-cover bg-[var(--lime)] p-0.5 shrink-0"
           />
-          <span class="font-display font-700 text-lg tracking-tight"
+          <span class="font-display font-700 text-base sm:text-lg tracking-tight truncate"
             >Navora <span class="text-[var(--lime)]">Digital</span></span
           >
         </a>
@@ -102,22 +104,22 @@
             >Buat Kartu</a
           >
           <a
-            href="profil.html?id=xav"
+            href="profil.html?id=fadil"
             class="hover:text-[var(--lime)] transition"
             >Contoh Profil</a
           >
         </div>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-2 shrink-0">
           <a
             href="#buat-kartu"
-            class="btn-lime rounded-xl px-3.5 py-2 text-xs font-700 font-display uppercase tracking-wide"
+            class="btn-lime rounded-xl px-3 sm:px-3.5 py-2 text-[11px] sm:text-xs font-700 font-display uppercase tracking-wide min-h-[40px] inline-flex items-center"
           >
-            Buat ID Card
+            Buat Kartu
           </a>
           <a
             href="admin.html"
-            class="rounded-xl px-3.5 py-2 text-xs font-mono font-700 text-white/90 border border-white/25 hover:bg-white/10 transition"
+            class="rounded-xl px-3 sm:px-3.5 py-2 text-[11px] sm:text-xs font-mono font-700 text-white/90 border border-white/25 hover:bg-white/10 transition min-h-[40px] inline-flex items-center"
           >
             Admin
           </a>
@@ -176,16 +178,16 @@
             langsung menerima notifikasi untuk mencetak ID Card fisikmu.
           </p>
 
-          <div class="flex flex-wrap items-center gap-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
             <a
               href="#buat-kartu"
-              class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center justify-center min-h-[44px]"
+              class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center justify-center min-h-[44px] w-full sm:w-auto"
             >
               Input Data Sekarang
             </a>
             <a
-              href="profil.html?id=xav"
-              class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px]"
+              href="profil.html?id=fadil"
+              class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px] w-full sm:w-auto"
             >
               Lihat Demo Kartu
             </a>
@@ -216,42 +218,37 @@
         </div>
 
         <!-- Hero Badge Preview -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="w-full max-w-[320px] float-badge">
+        <div class="lg:col-span-5 flex justify-center pt-2">
+          <div class="w-full max-w-[295px] sm:max-w-[320px] lanyard-swing">
             <div class="lanyard-wrap">
-              <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
-                <rect
-                  x="30"
-                  y="0"
-                  width="26"
-                  height="70"
-                  rx="6"
-                  fill="var(--lime)"
-                />
-                <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)" />
-                <circle
-                  cx="43"
-                  cy="72"
-                  r="9"
-                  fill="#D9D9D9"
-                  stroke="#9A9A9A"
-                  stroke-width="2"
-                />
-                <path
-                  d="M43 81 L43 100"
-                  stroke="#B9B9B9"
-                  stroke-width="5"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z"
-                  fill="#E6E6E6"
-                  stroke="#A6A6A6"
-                  stroke-width="2"
-                />
+              <svg width="110" height="168" viewBox="0 0 110 168" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="strapGradHero" x1="35" y1="0" x2="75" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#E5FF66"/>
+                    <stop offset="55%" stop-color="#D6FA3B"/>
+                    <stop offset="100%" stop-color="#A9CC1F"/>
+                  </linearGradient>
+                  <linearGradient id="metalGradHero" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#F8FAFC"/>
+                    <stop offset="50%" stop-color="#CBD5E1"/>
+                    <stop offset="100%" stop-color="#94A3B8"/>
+                  </linearGradient>
+                </defs>
+                <!-- Tali lanyard atas -->
+                <path d="M22 0 L42 92 L68 92 L88 0 Z" fill="url(#strapGradHero)"/>
+                <path d="M26 0 L44 92 M84 0 L66 92" stroke="#99BC15" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+                <!-- Jahitan lipatan lanyard -->
+                <rect x="39" y="78" width="32" height="18" rx="4" fill="#15130F"/>
+                <circle cx="55" cy="87" r="3.2" fill="url(#metalGradHero)"/>
+                <!-- Ring D + Swivel -->
+                <rect x="44" y="96" width="22" height="10" rx="5" fill="none" stroke="url(#metalGradHero)" stroke-width="3.5"/>
+                <rect x="50" y="105" width="10" height="13" rx="3" fill="url(#metalGradHero)" stroke="#64748B" stroke-width="1.2"/>
+                <!-- Pengait besi masuk ke lubang kartu -->
+                <path d="M55 118 C46 118 42 126 42 135 C42 145 48 153 55 153 C62 153 68 145 68 135 C68 128 63 122 57 121" fill="none" stroke="url(#metalGradHero)" stroke-width="4.5" stroke-linecap="round"/>
+                <rect x="36" y="144" width="38" height="14" rx="5" fill="url(#metalGradHero)" stroke="#64748B" stroke-width="1.5"/>
               </svg>
             </div>
-            <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
+            <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-5 sm:px-6">
               <p
                 class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2"
               >
@@ -259,18 +256,19 @@
               </p>
               <h2 class="font-display text-2xl text-center mb-4">
                 <span class="font-500">Muhammad</span>
-                <span class="font-700">xav</span>
+                <span class="font-700">Fadil</span>
               </h2>
               <div
-                class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3"
+                class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3 border border-black/10"
               >
                 <img
-                  src="assets/img/xav.jpeg"
-                  alt="Contoh kartu profil Xavier"
+                  src="assets/img/fadil.jpeg"
+                  onerror="this.src='assets/img/man.jpg'"
+                  alt="Contoh kartu profil Muhammad Fadil"
                   width="320"
                   height="320"
                   fetchpriority="high"
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-cover object-center"
                 />
               </div>
               <div class="text-center mb-3">
@@ -279,7 +277,7 @@
                 >
               </div>
               <div class="ticket-edge pt-3 flex items-center justify-between">
-                <div class="barcode flex items-end h-5">
+                <div class="barcode flex items-end h-5" aria-hidden="true">
                   <span style="height: 100%"></span
                   ><span style="height: 55%"></span
                   ><span style="height: 80%"></span>
@@ -291,7 +289,7 @@
                 </div>
                 <span
                   class="font-mono text-[10px] text-[var(--ink-soft)] uppercase"
-                  >ID: xav</span
+                  >ID: fadil</span
                 >
               </div>
             </div>
@@ -707,38 +705,29 @@
             >
               Live Preview Kartu Anda
             </p>
-            <div class="w-full max-w-[330px]">
+            <div class="w-full max-w-[295px] sm:max-w-[330px] lanyard-swing">
               <div class="lanyard-wrap">
-                <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
-                  <rect
-                    x="30"
-                    y="0"
-                    width="26"
-                    height="70"
-                    rx="6"
-                    fill="var(--lime)"
-                  />
-                  <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)" />
-                  <circle
-                    cx="43"
-                    cy="72"
-                    r="9"
-                    fill="#D9D9D9"
-                    stroke="#9A9A9A"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M43 81 L43 100"
-                    stroke="#B9B9B9"
-                    stroke-width="5"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z"
-                    fill="#E6E6E6"
-                    stroke="#A6A6A6"
-                    stroke-width="2"
-                  />
+                <svg width="110" height="168" viewBox="0 0 110 168" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="strapGradPrev" x1="35" y1="0" x2="75" y2="100" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#E5FF66"/>
+                      <stop offset="55%" stop-color="#D6FA3B"/>
+                      <stop offset="100%" stop-color="#A9CC1F"/>
+                    </linearGradient>
+                    <linearGradient id="metalGradPrev" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#F8FAFC"/>
+                      <stop offset="50%" stop-color="#CBD5E1"/>
+                      <stop offset="100%" stop-color="#94A3B8"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M22 0 L42 92 L68 92 L88 0 Z" fill="url(#strapGradPrev)"/>
+                  <path d="M26 0 L44 92 M84 0 L66 92" stroke="#99BC15" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+                  <rect x="39" y="78" width="32" height="18" rx="4" fill="#15130F"/>
+                  <circle cx="55" cy="87" r="3.2" fill="url(#metalGradPrev)"/>
+                  <rect x="44" y="96" width="22" height="10" rx="5" fill="none" stroke="url(#metalGradPrev)" stroke-width="3.5"/>
+                  <rect x="50" y="105" width="10" height="13" rx="3" fill="url(#metalGradPrev)" stroke="#64748B" stroke-width="1.2"/>
+                  <path d="M55 118 C46 118 42 126 42 135 C42 145 48 153 55 153 C62 153 68 145 68 135 C68 128 63 122 57 121" fill="none" stroke="url(#metalGradPrev)" stroke-width="4.5" stroke-linecap="round"/>
+                  <rect x="36" y="144" width="38" height="14" rx="5" fill="url(#metalGradPrev)" stroke="#64748B" stroke-width="1.5"/>
                 </svg>
               </div>
               <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">

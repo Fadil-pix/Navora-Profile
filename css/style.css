@@ -14,6 +14,7 @@ html,body{
   font-family:'Inter',sans-serif;
   color:var(--ink);
   min-height:100%;
+  max-width:100%;
   overflow-x:hidden;
   scroll-behavior:smooth;
 }
@@ -40,20 +41,33 @@ html,body{
 .star{ position:absolute; }
 
 /* ---- Klip lanyard di atas kartu ---- */
-.lanyard-wrap{ display:flex; justify-content:center; margin-bottom:-22px; position:relative; z-index:2; }
+.lanyard-wrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:-28px;
+  position:relative;
+  z-index:3;
+  pointer-events:none;
+}
 
 /* ---- Kartu badge utama ---- */
 .badge{
   background: var(--cream);
-  box-shadow: 0 25px 60px -15px rgba(20,10,40,0.55);
+  border: 1.5px solid rgba(255,255,255,0.65);
+  box-shadow: 0 28px 60px -15px rgba(15,6,35,0.6), 0 0 0 1px rgba(21,19,15,0.08);
   position:relative;
 }
 .badge::before{
   content:"";
-  position:absolute; top:14px; left:50%; transform:translateX(-50%);
-  width:26px; height:26px; border-radius:9999px;
-  background: radial-gradient(circle at 35% 30%, var(--purple), var(--purple-deep));
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+  position:absolute;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  width:50px;
+  height:12px;
+  border-radius:9999px;
+  background: radial-gradient(circle at 50% 35%, var(--purple), var(--purple-deep));
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.7);
 }
 
 /* ---- Kartu cream umum (tanpa lubang lanyard) ---- */
@@ -149,11 +163,26 @@ html,body{
 @keyframes rise{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform: translateY(0);} }
 .rise{ animation: rise .55s ease both; }
 
-@keyframes floatSlow{
-  0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
-  50% { transform: translateY(-10px) rotate(1.5deg); }
+@keyframes lanyardSwing{
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
 }
-.float-badge{ animation: floatSlow 5.5s ease-in-out infinite; }
+.lanyard-swing, .float-badge{
+  transform-origin: 50% 0%;
+  animation: lanyardSwing 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.lanyard-swing:hover, .float-badge:hover{
+  animation-play-state: paused;
+  transform: rotate(0deg) translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .navora-input {
+    font-size: 16px;
+  }
+}
 
 .hidden{ display:none !important; }
 
@@ -177,7 +206,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   html, body {
     scroll-behavior: auto;
   }
-  .rise, .float-badge, .animate-pulse, .animate-ping, .animate-spin {
+  .rise, .float-badge, .lanyard-swing, .animate-pulse, .animate-ping, .animate-spin {
     animation: none !important;
   }
   * {
