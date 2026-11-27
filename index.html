@@ -1,379 +1,816 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navora Digital | Kartu Profil Digital & ID Card QR</title>
-<script>
-  // Kompatibilitas tautan lama (?id=...) agar langsung mengarah ke halaman profil
-  if (new URLSearchParams(window.location.search).has('id')) {
-    window.location.replace('profil.html' + window.location.search);
-  }
-</script>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="assets/img/logo.png">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navora Digital | Kartu Profil Digital & ID Card QR</title>
+    <script>
+      // Kompatibilitas tautan lama (?id=...) agar langsung mengarah ke halaman profil
+      if (new URLSearchParams(window.location.search).has("id")) {
+        window.location.replace("profil.html" + window.location.search);
+      }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="assets/img/logo.png" />
+  </head>
 
-<body class="relative min-h-screen text-[var(--ink)]">
+  <body class="relative min-h-screen text-[var(--ink)]">
+    <!-- Lapisan dekoratif -->
+    <div class="deco">
+      <p class="ghost-text text-[10rem] -top-8 -left-6 rotate-[-6deg]">
+        NAVORA
+      </p>
+      <p class="ghost-text text-[8rem] bottom-6 right-[-1.5rem] rotate-[4deg]">
+        DIGITAL
+      </p>
+      <div class="dotgrid top-16 left-8"></div>
+      <div class="dotgrid bottom-12 right-6"></div>
 
-  <!-- Lapisan dekoratif -->
-  <div class="deco">
-    <p class="ghost-text text-[10rem] -top-8 -left-6 rotate-[-6deg]">NAVORA</p>
-    <p class="ghost-text text-[8rem] bottom-6 right-[-1.5rem] rotate-[4deg]">DIGITAL</p>
-    <div class="dotgrid top-16 left-8"></div>
-    <div class="dotgrid bottom-12 right-6"></div>
+      <svg
+        class="squiggle"
+        width="260"
+        height="120"
+        style="top: 34%; right: -40px"
+        viewBox="0 0 260 120"
+        fill="none"
+      >
+        <path
+          d="M2 60 C40 10, 70 110, 110 60 S180 10, 220 60 S258 100 258 100"
+          stroke="#D6FA3B"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </svg>
 
-    <svg class="squiggle" width="260" height="120" style="top:34%; right:-40px;" viewBox="0 0 260 120" fill="none">
-      <path d="M2 60 C40 10, 70 110, 110 60 S180 10, 220 60 S258 100 258 100" stroke="#D6FA3B" stroke-width="3" stroke-linecap="round"/>
-    </svg>
-
-    <svg class="star" width="84" height="84" style="top:14%; left:5%; opacity:.85;" viewBox="0 0 100 100" fill="#D6FA3B">
-      <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
-    </svg>
-    <svg class="star" width="44" height="44" style="bottom:10%; left:12%; opacity:.65;" viewBox="0 0 100 100" fill="#D6FA3B">
-      <path d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"/>
-    </svg>
-  </div>
-
-  <!-- Navbar -->
-  <header class="relative z-20 max-w-6xl mx-auto px-4 pt-5">
-    <nav class="glass-panel rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-      <a href="index.html" class="flex items-center gap-2.5 text-white">
-        <img src="assets/img/logo.png" alt="Navora Logo" class="w-8 h-8 rounded-lg object-cover bg-[var(--lime)] p-0.5">
-        <span class="font-display font-700 text-lg tracking-tight">Navora <span class="text-[var(--lime)]">Digital</span></span>
-      </a>
-
-      <div class="hidden md:flex items-center gap-6 text-sm text-white/80 font-medium">
-        <a href="#cara-kerja" class="hover:text-[var(--lime)] transition">Cara Kerja</a>
-        <a href="#buat-kartu" class="hover:text-[var(--lime)] transition">Buat Kartu</a>
-        <a href="profil.html?id=fadil" class="hover:text-[var(--lime)] transition">Contoh Profil</a>
-      </div>
-
-      <div class="flex items-center gap-2.5">
-        <a href="#buat-kartu" class="btn-lime rounded-xl px-3.5 py-2 text-xs font-700 font-display uppercase tracking-wide">
-          Buat ID Card
-        </a>
-        <a href="admin.html" class="rounded-xl px-3.5 py-2 text-xs font-mono font-700 text-white/90 border border-white/25 hover:bg-white/10 transition">
-          Admin
-        </a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Banner Mode Demo (muncul otomatis jika Firebase belum dikonfigurasi) -->
-  <div id="demo-banner" class="hidden relative z-20 max-w-6xl mx-auto px-4 mt-4">
-    <div class="rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] px-4 py-2.5 text-xs font-medium flex flex-wrap items-center justify-between gap-2">
-      <span><strong>Mode Demo Lokal Aktif:</strong> Data tersimpan di browser ini. Isi <code class="font-mono bg-black/10 px-1.5 py-0.5 rounded">js/config/firebase-config.js</code> untuk menghubungkan ke Firebase Firestore.</span>
-      <a href="admin.html" class="font-mono font-700 underline">Buka Admin</a>
+      <svg
+        class="star"
+        width="84"
+        height="84"
+        style="top: 14%; left: 5%; opacity: 0.85"
+        viewBox="0 0 100 100"
+        fill="#D6FA3B"
+      >
+        <path
+          d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"
+        />
+      </svg>
+      <svg
+        class="star"
+        width="44"
+        height="44"
+        style="bottom: 10%; left: 12%; opacity: 0.65"
+        viewBox="0 0 100 100"
+        fill="#D6FA3B"
+      >
+        <path
+          d="M50 0 L58 38 L96 40 L62 58 L74 96 L50 72 L26 96 L38 58 L4 40 L42 38 Z"
+        />
+      </svg>
     </div>
-  </div>
 
-  <main class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
+    <!-- Navbar -->
+    <header class="relative z-20 max-w-6xl mx-auto px-4 pt-5">
+      <nav
+        class="glass-panel rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4"
+      >
+        <a href="index.html" class="flex items-center gap-2.5 text-white">
+          <img
+            src="assets/img/logo.png"
+            alt="Navora Logo"
+            class="w-8 h-8 rounded-lg object-cover bg-[var(--lime)] p-0.5"
+          />
+          <span class="font-display font-700 text-lg tracking-tight"
+            >Navora <span class="text-[var(--lime)]">Digital</span></span
+          >
+        </a>
 
-    <!-- HERO SECTION -->
-    <section class="pt-10 pb-14 lg:py-16 grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7 text-white rise">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--lime)] mb-3">Kartu Profil Digital & ID Card QR</p>
+        <div
+          class="hidden md:flex items-center gap-6 text-sm text-white/80 font-medium"
+        >
+          <a href="#cara-kerja" class="hover:text-[var(--lime)] transition"
+            >Cara Kerja</a
+          >
+          <a href="#buat-kartu" class="hover:text-[var(--lime)] transition"
+            >Buat Kartu</a
+          >
+          <a
+            href="profil.html?id=xav"
+            class="hover:text-[var(--lime)] transition"
+            >Contoh Profil</a
+          >
+        </div>
 
-        <h1 class="font-display font-700 text-4xl sm:text-5xl lg:text-6xl leading-[1.03] tracking-tight mb-5">
-          Satu Kartu Cerdas,<br>
-          <span class="split-underline text-[var(--ink)] bg-[var(--lime)] px-2 rounded-lg inline-block mt-1">Semua Kontakmu.</span>
-        </h1>
-
-        <p class="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl mb-8">
-          Isi data dirimu sendiri langsung dari halaman ini. Website profil pribadimu otomatis dibuat lengkap dengan <strong class="text-[var(--lime)]">QR Code</strong>, dan admin langsung menerima notifikasi untuk mencetak ID Card fisikmu.
-        </p>
-
-        <div class="flex flex-wrap items-center gap-3.5">
-          <a href="#buat-kartu" class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center justify-center min-h-[44px]">
-            Input Data Sekarang
+        <div class="flex items-center gap-2.5">
+          <a
+            href="#buat-kartu"
+            class="btn-lime rounded-xl px-3.5 py-2 text-xs font-700 font-display uppercase tracking-wide"
+          >
+            Buat ID Card
           </a>
-          <a href="profil.html?id=fadil" class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px]">
-            Lihat Demo Kartu
-          </a>
-        </div>
-
-        <ul class="mt-9 grid sm:grid-cols-3 gap-4 max-w-lg pt-6 border-t border-white/15 text-xs text-white/80">
-          <li>
-            <p class="font-display font-700 text-base text-[var(--lime)]">Web Otomatis</p>
-            <p>Tautan profil aktif setelah kirim data</p>
-          </li>
-          <li>
-            <p class="font-display font-700 text-base text-[var(--lime)]">QR Code PNG</p>
-            <p>Langsung tampil dan siap diunduh</p>
-          </li>
-          <li>
-            <p class="font-display font-700 text-base text-[var(--lime)]">Cetak Rp 25.000</p>
-            <p>ID Card fisik diproses admin</p>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Hero Badge Preview -->
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="w-full max-w-[320px] float-badge">
-          <div class="lanyard-wrap">
-            <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
-              <rect x="30" y="0" width="26" height="70" rx="6" fill="var(--lime)"/>
-              <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)"/>
-              <circle cx="43" cy="72" r="9" fill="#D9D9D9" stroke="#9A9A9A" stroke-width="2"/>
-              <path d="M43 81 L43 100" stroke="#B9B9B9" stroke-width="5" stroke-linecap="round"/>
-              <path d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z" fill="#E6E6E6" stroke="#A6A6A6" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
-            <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2">Kartu Profil Digital</p>
-            <h2 class="font-display text-2xl text-center mb-4"><span class="font-500">Muhammad</span> <span class="font-700">Fadil</span></h2>
-            <div class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3">
-              <img src="assets/img/fadil.jpeg" alt="Contoh kartu profil Muhammad Fadil" width="320" height="320" fetchpriority="high" class="w-full h-full object-cover">
-            </div>
-            <div class="text-center mb-3">
-              <span class="inline-block font-700 text-xs split-underline px-1">Data Analyst</span>
-            </div>
-            <div class="ticket-edge pt-3 flex items-center justify-between">
-              <div class="barcode flex items-end h-5">
-                <span style="height:100%"></span><span style="height:55%"></span><span style="height:80%"></span>
-                <span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span>
-                <span style="height:50%"></span><span style="height:90%"></span>
-              </div>
-              <span class="font-mono text-[10px] text-[var(--ink-soft)] uppercase">ID: fadil</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ALUR LAYANAN (Komposisi asimetris, non-template) -->
-    <section id="cara-kerja" class="py-10">
-      <div class="grid lg:grid-cols-12 gap-6 items-stretch">
-        <div class="lg:col-span-7 cream-card rounded-[28px] p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <p class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)] font-700 mb-2">Alur Layanan</p>
-            <h2 class="font-display font-700 text-2xl sm:text-3xl mb-6">Dari Input Data ke ID Card Fisik</h2>
-          </div>
-
-          <ol class="space-y-4 border-l-2 border-[var(--ink)] pl-5">
-            <li>
-              <p class="font-display font-700 text-base">Isi Data & Foto Mandiri</p>
-              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Masukkan nama, jabatan, kontak WhatsApp, email, dan media sosial. Pratinjau kartu langsung mengikuti ketikanmu.</p>
-            </li>
-            <li>
-              <p class="font-display font-700 text-base">Halaman Web & QR Code Langsung Terbuat</p>
-              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Data tersimpan ke Firebase dan tautan profil serta QR Code unik langsung siap dibagikan atau diunduh.</p>
-            </li>
-            <li>
-              <p class="font-display font-700 text-base">Notifikasi Admin, Cetak & Pembayaran</p>
-              <p class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5">Begitu QR Code tampil, admin mendapat notifikasi untuk mencetak kartu fisik, menerima pembayaran, dan menyerahkan kartu.</p>
-            </li>
-          </ol>
-        </div>
-
-        <div class="lg:col-span-5 rounded-[28px] bg-[var(--ink)] text-[var(--cream)] border-2 border-[var(--lime)] p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <p class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--lime)] mb-2">Kelengkapan</p>
-            <h3 class="font-display font-700 text-2xl mb-4">Yang Kamu Dapatkan</h3>
-            <ul class="space-y-3 text-sm text-white/85">
-              <li class="flex items-start gap-2.5">
-                <span class="font-mono text-[var(--lime)] font-700">01</span>
-                <span>Halaman web profil pribadi dengan tombol WhatsApp, Email, media sosial, dan ekspor kontak (.vcf).</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="font-mono text-[var(--lime)] font-700">02</span>
-                <span>QR Code beresolusi tinggi (PNG) yang mengarah ke halaman profilmu.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="font-mono text-[var(--lime)] font-700">03</span>
-                <span>ID Card fisik cetak dari meja admin (Rp 25.000 saat pengambilan).</span>
-              </li>
-            </ul>
-          </div>
-          <a href="#buat-kartu" class="btn-lime rounded-xl px-5 py-3 text-xs font-700 font-display text-center mt-6">
-            Mulai Isi Form di Bawah
+          <a
+            href="admin.html"
+            class="rounded-xl px-3.5 py-2 text-xs font-mono font-700 text-white/90 border border-white/25 hover:bg-white/10 transition"
+          >
+            Admin
           </a>
         </div>
+      </nav>
+    </header>
+
+    <!-- Banner Mode Demo (muncul otomatis jika Firebase belum dikonfigurasi) -->
+    <div
+      id="demo-banner"
+      class="hidden relative z-20 max-w-6xl mx-auto px-4 mt-4"
+    >
+      <div
+        class="rounded-xl bg-[var(--lime)] text-[var(--ink)] border-2 border-[var(--ink)] px-4 py-2.5 text-xs font-medium flex flex-wrap items-center justify-between gap-2"
+      >
+        <span
+          ><strong>Mode Demo Lokal Aktif:</strong> Data tersimpan di browser
+          ini. Isi
+          <code class="font-mono bg-black/10 px-1.5 py-0.5 rounded"
+            >js/config/firebase-config.js</code
+          >
+          untuk menghubungkan ke Firebase Firestore.</span
+        >
+        <a href="admin.html" class="font-mono font-700 underline">Buka Admin</a>
       </div>
-    </section>
+    </div>
 
-    <!-- FORM INPUT CLIENT + LIVE PREVIEW / QR RESULT -->
-    <section id="buat-kartu" class="pt-10">
-      <div class="text-center text-white mb-8">
-        <p class="font-mono text-xs tracking-[0.25em] uppercase text-[var(--lime)] mb-2">Registrasi Pelanggan</p>
-        <h2 class="font-display font-700 text-3xl sm:text-4xl">Buat Kartu Profil & QR Code</h2>
-      </div>
+    <main class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
+      <!-- HERO SECTION -->
+      <section
+        class="pt-10 pb-14 lg:py-16 grid lg:grid-cols-12 gap-10 items-center"
+      >
+        <div class="lg:col-span-7 text-white rise">
+          <p
+            class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--lime)] mb-3"
+          >
+            Kartu Profil Digital & ID Card QR
+          </p>
 
-      <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <h1
+            class="font-display font-700 text-4xl sm:text-5xl lg:text-6xl leading-[1.03] tracking-tight mb-5"
+          >
+            Satu Kartu Cerdas,<br />
+            <span
+              class="split-underline text-[var(--ink)] bg-[var(--lime)] px-2 rounded-lg inline-block mt-1"
+              >Semua Kontakmu.</span
+            >
+          </h1>
 
-        <!-- Kolom Form / Hasil QR -->
-        <div class="lg:col-span-7">
+          <p
+            class="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl mb-8"
+          >
+            Isi data dirimu sendiri langsung dari halaman ini. Website profil
+            pribadimu otomatis dibuat lengkap dengan
+            <strong class="text-[var(--lime)]">QR Code</strong>, dan admin
+            langsung menerima notifikasi untuk mencetak ID Card fisikmu.
+          </p>
 
-          <!-- FORM CARD -->
-          <form id="client-form" class="cream-card rounded-[28px] p-6 sm:p-8 space-y-5">
-            <div class="flex items-center justify-between border-b border-black/10 pb-4">
-              <div>
-                <h3 class="font-display font-700 text-xl">Data Pelanggan</h3>
-                <p class="text-xs text-[var(--ink-soft)]">Lengkapi data di bawah untuk membuat halaman profil otomatis.</p>
-              </div>
-              <span class="font-mono text-[11px] bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full font-700">GRATIS WEB</span>
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
-                <input type="text" id="input-nama" required placeholder="cth: Budi Santoso" class="navora-input">
-              </div>
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Jabatan / Profesi *</label>
-                <input type="text" id="input-jabatan" required placeholder="cth: UI/UX Designer" class="navora-input">
-              </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">ID / Slug URL *</label>
-                <div class="relative">
-                  <input type="text" id="input-slug" required placeholder="budi-santoso" class="navora-input font-mono text-xs pr-20">
-                  <span id="slug-status" class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] font-700 text-[var(--ink-soft)]"></span>
-                </div>
-                <p class="text-[11px] text-[var(--ink-soft)] mt-1 font-mono truncate" id="slug-preview">profil.html?id=...</p>
-              </div>
-
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Foto Profil</label>
-                <label class="navora-input flex items-center justify-between cursor-pointer hover:border-[var(--purple)]">
-                  <span id="photo-filename" class="text-xs text-[var(--ink-soft)] truncate">Pilih foto (JPG/PNG)...</span>
-                  <span class="font-mono text-[11px] font-700 bg-[var(--ink)] text-[var(--lime)] px-2.5 py-1 rounded-lg shrink-0">Upload</span>
-                  <input type="file" id="input-foto" accept="image/*" class="hidden">
-                </label>
-              </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Email</label>
-                <input type="email" id="input-email" placeholder="budi@email.com" class="navora-input">
-              </div>
-              <div>
-                <label class="block text-xs font-700 uppercase tracking-wider mb-1.5">Nomor WhatsApp</label>
-                <input type="tel" id="input-whatsapp" placeholder="081234567890" class="navora-input">
-              </div>
-            </div>
-
-            <div class="pt-2">
-              <p class="text-xs font-700 uppercase tracking-wider mb-2.5 text-[var(--ink-soft)]">Media Sosial (Opsional)</p>
-              <div class="grid sm:grid-cols-2 gap-3">
-                <input type="url" id="input-instagram" placeholder="Link Instagram (https://...)" class="navora-input text-xs">
-                <input type="url" id="input-tiktok" placeholder="Link TikTok (https://...)" class="navora-input text-xs">
-                <input type="url" id="input-linkedin" placeholder="Link LinkedIn (https://...)" class="navora-input text-xs">
-                <input type="url" id="input-youtube" placeholder="Link YouTube (https://...)" class="navora-input text-xs">
-                <input type="url" id="input-facebook" placeholder="Link Facebook (https://...)" class="navora-input text-xs sm:col-span-2">
-              </div>
-            </div>
-
-            <div id="form-error" class="hidden rounded-xl bg-red-100 border border-red-400 text-red-800 px-4 py-2.5 text-xs font-medium"></div>
-
-            <button type="submit" id="btn-submit" class="btn-lime w-full rounded-xl py-3.5 font-display font-700 text-base flex items-center justify-center gap-2">
-              <span id="btn-submit-text">Buat Halaman Profil & QR Code</span>
-            </button>
-          </form>
-
-          <!-- HASIL QR CODE OTOMATIS (muncul setelah submit) -->
-          <div id="qr-result" class="hidden cream-card rounded-[28px] p-6 sm:p-8 rise">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 mb-6">
-              <div>
-                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-700 bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full mb-2">
-                  <span class="w-2 h-2 rounded-full bg-green-600 animate-ping"></span>
-                  NOTIFIKASI TERKIRIM KE ADMIN
-                </span>
-                <h3 class="font-display font-700 text-2xl">Halaman & QR Code Siap!</h3>
-              </div>
-              <button type="button" id="btn-create-another" class="text-xs font-mono font-700 underline text-[var(--purple)] hover:text-[var(--ink)]">
-                + Buat Kartu Baru
-              </button>
-            </div>
-
-            <div class="grid sm:grid-cols-12 gap-6 items-center">
-              <div class="sm:col-span-5 flex flex-col items-center bg-white p-5 rounded-2xl border-2 border-[var(--ink)]">
-                <div id="qr-container" class="p-2 bg-white"></div>
-                <p id="qr-id-label" class="font-mono text-[11px] font-700 uppercase mt-2 text-[var(--ink-soft)]"></p>
-              </div>
-
-              <div class="sm:col-span-7 space-y-4">
-                <div>
-                  <p class="text-xs font-700 uppercase tracking-wider text-[var(--ink-soft)] mb-1">URL Halaman Profil Anda</p>
-                  <div class="flex items-center gap-2">
-                    <input type="text" id="result-url" readonly class="navora-input font-mono text-xs bg-white">
-                    <button type="button" id="btn-copy-url" class="btn-ink rounded-xl px-3.5 py-2.5 text-xs font-700 shrink-0">Salin</button>
-                  </div>
-                </div>
-
-                <div class="rounded-xl bg-purple-100 border border-purple-300 p-3.5 text-xs text-purple-950 leading-relaxed">
-                  <strong>Langkah Selanjutnya:</strong> Admin Navora Digital sudah menerima notifikasi pesanan Anda. Silakan tunjukkan QR / ID ini ke admin untuk <strong>cetak ID Card fisik & pembayaran</strong>.
-                </div>
-
-                <div class="flex flex-wrap gap-2.5 pt-1">
-                  <a id="btn-open-profile" href="#" target="_blank" rel="noopener" class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display inline-flex items-center justify-center min-h-[44px]">
-                    Buka Halaman Profil
-                  </a>
-                  <button type="button" id="btn-download-qr" class="btn-email rounded-xl px-4 py-2.5 text-xs font-700 min-h-[44px]">
-                    Download QR (PNG)
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="flex flex-wrap items-center gap-3.5">
+            <a
+              href="#buat-kartu"
+              class="btn-lime rounded-xl px-6 py-3.5 text-sm font-700 font-display inline-flex items-center justify-center min-h-[44px]"
+            >
+              Input Data Sekarang
+            </a>
+            <a
+              href="profil.html?id=xav"
+              class="rounded-xl px-5 py-3.5 text-sm font-600 text-white border border-white/30 hover:bg-white/10 transition inline-flex items-center justify-center min-h-[44px]"
+            >
+              Lihat Demo Kartu
+            </a>
           </div>
 
+          <ul
+            class="mt-9 grid sm:grid-cols-3 gap-4 max-w-lg pt-6 border-t border-white/15 text-xs text-white/80"
+          >
+            <li>
+              <p class="font-display font-700 text-base text-[var(--lime)]">
+                Web Otomatis
+              </p>
+              <p>Tautan profil aktif setelah kirim data</p>
+            </li>
+            <li>
+              <p class="font-display font-700 text-base text-[var(--lime)]">
+                QR Code PNG
+              </p>
+              <p>Langsung tampil dan siap diunduh</p>
+            </li>
+            <li>
+              <p class="font-display font-700 text-base text-[var(--lime)]">
+                Cetak Rp 25.000
+              </p>
+              <p>ID Card fisik diproses admin</p>
+            </li>
+          </ul>
         </div>
 
-        <!-- Kolom Live Preview -->
-        <div class="lg:col-span-5 flex flex-col items-center lg:sticky lg:top-8">
-          <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--lime)] mb-3">Live Preview Kartu Anda</p>
-          <div class="w-full max-w-[330px]">
+        <!-- Hero Badge Preview -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[320px] float-badge">
             <div class="lanyard-wrap">
               <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
-                <rect x="30" y="0" width="26" height="70" rx="6" fill="var(--lime)"/>
-                <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)"/>
-                <circle cx="43" cy="72" r="9" fill="#D9D9D9" stroke="#9A9A9A" stroke-width="2"/>
-                <path d="M43 81 L43 100" stroke="#B9B9B9" stroke-width="5" stroke-linecap="round"/>
-                <path d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z" fill="#E6E6E6" stroke="#A6A6A6" stroke-width="2"/>
+                <rect
+                  x="30"
+                  y="0"
+                  width="26"
+                  height="70"
+                  rx="6"
+                  fill="var(--lime)"
+                />
+                <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)" />
+                <circle
+                  cx="43"
+                  cy="72"
+                  r="9"
+                  fill="#D9D9D9"
+                  stroke="#9A9A9A"
+                  stroke-width="2"
+                />
+                <path
+                  d="M43 81 L43 100"
+                  stroke="#B9B9B9"
+                  stroke-width="5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z"
+                  fill="#E6E6E6"
+                  stroke="#A6A6A6"
+                  stroke-width="2"
+                />
               </svg>
             </div>
             <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
-              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2">Kartu Profil Digital</p>
-              <h3 id="prev-nama" class="font-display text-2xl text-center mb-4 font-700">Nama Anda</h3>
-              <div class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3">
-                <img id="prev-foto" src="assets/img/man.jpg" alt="Preview" class="w-full h-full object-cover">
+              <p
+                class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2"
+              >
+                Kartu Profil Digital
+              </p>
+              <h2 class="font-display text-2xl text-center mb-4">
+                <span class="font-500">Muhammad</span>
+                <span class="font-700">xav</span>
+              </h2>
+              <div
+                class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3"
+              >
+                <img
+                  src="assets/img/xav.jpeg"
+                  alt="Contoh kartu profil Xavier"
+                  width="320"
+                  height="320"
+                  fetchpriority="high"
+                  class="w-full h-full object-cover"
+                />
               </div>
-              <div class="text-center mb-4">
-                <span id="prev-jabatan" class="inline-block font-700 text-xs split-underline px-1">Jabatan / Profesi</span>
-              </div>
-              <div class="flex items-center gap-2 mb-4">
-                <div class="btn-email flex-1 rounded-lg px-2 py-2 text-[11px] text-center truncate" id="prev-email">email@anda.com</div>
-                <div class="btn-whatsapp flex-1 rounded-lg px-2 py-2 text-[11px] font-700 text-center">WhatsApp</div>
+              <div class="text-center mb-3">
+                <span class="inline-block font-700 text-xs split-underline px-1"
+                  >Data Analyst</span
+                >
               </div>
               <div class="ticket-edge pt-3 flex items-center justify-between">
                 <div class="barcode flex items-end h-5">
-                  <span style="height:100%"></span><span style="height:55%"></span><span style="height:80%"></span>
-                  <span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span>
+                  <span style="height: 100%"></span
+                  ><span style="height: 55%"></span
+                  ><span style="height: 80%"></span>
+                  <span style="height: 40%"></span
+                  ><span style="height: 100%"></span
+                  ><span style="height: 65%"></span>
+                  <span style="height: 50%"></span
+                  ><span style="height: 90%"></span>
                 </div>
-                <span id="prev-id" class="font-mono text-[10px] text-[var(--ink-soft)] uppercase">ID: -</span>
+                <span
+                  class="font-mono text-[10px] text-[var(--ink-soft)] uppercase"
+                  >ID: xav</span
+                >
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-      </div>
-    </section>
-  </main>
+      <!-- ALUR LAYANAN (Komposisi asimetris, non-template) -->
+      <section id="cara-kerja" class="py-10">
+        <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+          <div
+            class="lg:col-span-7 cream-card rounded-[28px] p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <p
+                class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)] font-700 mb-2"
+              >
+                Alur Layanan
+              </p>
+              <h2 class="font-display font-700 text-2xl sm:text-3xl mb-6">
+                Dari Input Data ke ID Card Fisik
+              </h2>
+            </div>
 
-  <footer class="relative z-10 border-t border-white/15 py-6 text-center text-xs text-white/75 font-mono">
-    © 2026 Navora Digital | Kartu Profil Digital & ID Card QR
-  </footer>
+            <ol class="space-y-4 border-l-2 border-[var(--ink)] pl-5">
+              <li>
+                <p class="font-display font-700 text-base">
+                  Isi Data & Foto Mandiri
+                </p>
+                <p
+                  class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5"
+                >
+                  Masukkan nama, jabatan, kontak WhatsApp, email, dan media
+                  sosial. Pratinjau kartu langsung mengikuti ketikanmu.
+                </p>
+              </li>
+              <li>
+                <p class="font-display font-700 text-base">
+                  Halaman Web & QR Code Langsung Terbuat
+                </p>
+                <p
+                  class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5"
+                >
+                  Data tersimpan ke Firebase dan tautan profil serta QR Code
+                  unik langsung siap dibagikan atau diunduh.
+                </p>
+              </li>
+              <li>
+                <p class="font-display font-700 text-base">
+                  Notifikasi Admin, Cetak & Pembayaran
+                </p>
+                <p
+                  class="text-xs text-[var(--ink-soft)] leading-relaxed mt-0.5"
+                >
+                  Begitu QR Code tampil, admin mendapat notifikasi untuk
+                  mencetak kartu fisik, menerima pembayaran, dan menyerahkan
+                  kartu.
+                </p>
+              </li>
+            </ol>
+          </div>
 
-  <script type="module" src="js/pages/landing.js"></script>
-</body>
+          <div
+            class="lg:col-span-5 rounded-[28px] bg-[var(--ink)] text-[var(--cream)] border-2 border-[var(--lime)] p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <p
+                class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--lime)] mb-2"
+              >
+                Kelengkapan
+              </p>
+              <h3 class="font-display font-700 text-2xl mb-4">
+                Yang Kamu Dapatkan
+              </h3>
+              <ul class="space-y-3 text-sm text-white/85">
+                <li class="flex items-start gap-2.5">
+                  <span class="font-mono text-[var(--lime)] font-700">01</span>
+                  <span
+                    >Halaman web profil pribadi dengan tombol WhatsApp, Email,
+                    media sosial, dan ekspor kontak (.vcf).</span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="font-mono text-[var(--lime)] font-700">02</span>
+                  <span
+                    >QR Code beresolusi tinggi (PNG) yang mengarah ke halaman
+                    profilmu.</span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="font-mono text-[var(--lime)] font-700">03</span>
+                  <span
+                    >ID Card fisik cetak dari meja admin (Rp 25.000 saat
+                    pengambilan).</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <a
+              href="#buat-kartu"
+              class="btn-lime rounded-xl px-5 py-3 text-xs font-700 font-display text-center mt-6"
+            >
+              Mulai Isi Form di Bawah
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM INPUT CLIENT + LIVE PREVIEW / QR RESULT -->
+      <section id="buat-kartu" class="pt-10">
+        <div class="text-center text-white mb-8">
+          <p
+            class="font-mono text-xs tracking-[0.25em] uppercase text-[var(--lime)] mb-2"
+          >
+            Registrasi Pelanggan
+          </p>
+          <h2 class="font-display font-700 text-3xl sm:text-4xl">
+            Buat Kartu Profil & QR Code
+          </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <!-- Kolom Form / Hasil QR -->
+          <div class="lg:col-span-7">
+            <!-- FORM CARD -->
+            <form
+              id="client-form"
+              class="cream-card rounded-[28px] p-6 sm:p-8 space-y-5"
+            >
+              <div
+                class="flex items-center justify-between border-b border-black/10 pb-4"
+              >
+                <div>
+                  <h3 class="font-display font-700 text-xl">Data Pelanggan</h3>
+                  <p class="text-xs text-[var(--ink-soft)]">
+                    Lengkapi data di bawah untuk membuat halaman profil
+                    otomatis.
+                  </p>
+                </div>
+                <span
+                  class="font-mono text-[11px] bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full font-700"
+                  >GRATIS WEB</span
+                >
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >Nama Lengkap *</label
+                  >
+                  <input
+                    type="text"
+                    id="input-nama"
+                    required
+                    placeholder="cth: Budi Santoso"
+                    class="navora-input"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >Jabatan / Profesi *</label
+                  >
+                  <input
+                    type="text"
+                    id="input-jabatan"
+                    required
+                    placeholder="cth: UI/UX Designer"
+                    class="navora-input"
+                  />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >ID / Slug URL *</label
+                  >
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="input-slug"
+                      required
+                      placeholder="budi-santoso"
+                      class="navora-input font-mono text-xs pr-20"
+                    />
+                    <span
+                      id="slug-status"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] font-700 text-[var(--ink-soft)]"
+                    ></span>
+                  </div>
+                  <p
+                    class="text-[11px] text-[var(--ink-soft)] mt-1 font-mono truncate"
+                    id="slug-preview"
+                  >
+                    profil.html?id=...
+                  </p>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >Foto Profil</label
+                  >
+                  <label
+                    class="navora-input flex items-center justify-between cursor-pointer hover:border-[var(--purple)]"
+                  >
+                    <span
+                      id="photo-filename"
+                      class="text-xs text-[var(--ink-soft)] truncate"
+                      >Pilih foto (JPG/PNG)...</span
+                    >
+                    <span
+                      class="font-mono text-[11px] font-700 bg-[var(--ink)] text-[var(--lime)] px-2.5 py-1 rounded-lg shrink-0"
+                      >Upload</span
+                    >
+                    <input
+                      type="file"
+                      id="input-foto"
+                      accept="image/*"
+                      class="hidden"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    id="input-email"
+                    placeholder="budi@email.com"
+                    class="navora-input"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-700 uppercase tracking-wider mb-1.5"
+                    >Nomor WhatsApp</label
+                  >
+                  <input
+                    type="tel"
+                    id="input-whatsapp"
+                    placeholder="081234567890"
+                    class="navora-input"
+                  />
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <p
+                  class="text-xs font-700 uppercase tracking-wider mb-2.5 text-[var(--ink-soft)]"
+                >
+                  Media Sosial (Opsional)
+                </p>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <input
+                    type="url"
+                    id="input-instagram"
+                    placeholder="Link Instagram (https://...)"
+                    class="navora-input text-xs"
+                  />
+                  <input
+                    type="url"
+                    id="input-tiktok"
+                    placeholder="Link TikTok (https://...)"
+                    class="navora-input text-xs"
+                  />
+                  <input
+                    type="url"
+                    id="input-linkedin"
+                    placeholder="Link LinkedIn (https://...)"
+                    class="navora-input text-xs"
+                  />
+                  <input
+                    type="url"
+                    id="input-youtube"
+                    placeholder="Link YouTube (https://...)"
+                    class="navora-input text-xs"
+                  />
+                  <input
+                    type="url"
+                    id="input-facebook"
+                    placeholder="Link Facebook (https://...)"
+                    class="navora-input text-xs sm:col-span-2"
+                  />
+                </div>
+              </div>
+
+              <div
+                id="form-error"
+                class="hidden rounded-xl bg-red-100 border border-red-400 text-red-800 px-4 py-2.5 text-xs font-medium"
+              ></div>
+
+              <button
+                type="submit"
+                id="btn-submit"
+                class="btn-lime w-full rounded-xl py-3.5 font-display font-700 text-base flex items-center justify-center gap-2"
+              >
+                <span id="btn-submit-text">Buat Halaman Profil & QR Code</span>
+              </button>
+            </form>
+
+            <!-- HASIL QR CODE OTOMATIS (muncul setelah submit) -->
+            <div
+              id="qr-result"
+              class="hidden cream-card rounded-[28px] p-6 sm:p-8 rise"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 mb-6"
+              >
+                <div>
+                  <span
+                    class="inline-flex items-center gap-1.5 font-mono text-[11px] font-700 bg-[var(--lime)] border border-[var(--ink)] px-2.5 py-1 rounded-full mb-2"
+                  >
+                    <span
+                      class="w-2 h-2 rounded-full bg-green-600 animate-ping"
+                    ></span>
+                    NOTIFIKASI TERKIRIM KE ADMIN
+                  </span>
+                  <h3 class="font-display font-700 text-2xl">
+                    Halaman & QR Code Siap!
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  id="btn-create-another"
+                  class="text-xs font-mono font-700 underline text-[var(--purple)] hover:text-[var(--ink)]"
+                >
+                  + Buat Kartu Baru
+                </button>
+              </div>
+
+              <div class="grid sm:grid-cols-12 gap-6 items-center">
+                <div
+                  class="sm:col-span-5 flex flex-col items-center bg-white p-5 rounded-2xl border-2 border-[var(--ink)]"
+                >
+                  <div id="qr-container" class="p-2 bg-white"></div>
+                  <p
+                    id="qr-id-label"
+                    class="font-mono text-[11px] font-700 uppercase mt-2 text-[var(--ink-soft)]"
+                  ></p>
+                </div>
+
+                <div class="sm:col-span-7 space-y-4">
+                  <div>
+                    <p
+                      class="text-xs font-700 uppercase tracking-wider text-[var(--ink-soft)] mb-1"
+                    >
+                      URL Halaman Profil Anda
+                    </p>
+                    <div class="flex items-center gap-2">
+                      <input
+                        type="text"
+                        id="result-url"
+                        readonly
+                        class="navora-input font-mono text-xs bg-white"
+                      />
+                      <button
+                        type="button"
+                        id="btn-copy-url"
+                        class="btn-ink rounded-xl px-3.5 py-2.5 text-xs font-700 shrink-0"
+                      >
+                        Salin
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="rounded-xl bg-purple-100 border border-purple-300 p-3.5 text-xs text-purple-950 leading-relaxed"
+                  >
+                    <strong>Langkah Selanjutnya:</strong> Admin Navora Digital
+                    sudah menerima notifikasi pesanan Anda. Silakan tunjukkan QR
+                    / ID ini ke admin untuk
+                    <strong>cetak ID Card fisik & pembayaran</strong>.
+                  </div>
+
+                  <div class="flex flex-wrap gap-2.5 pt-1">
+                    <a
+                      id="btn-open-profile"
+                      href="#"
+                      target="_blank"
+                      rel="noopener"
+                      class="btn-lime rounded-xl px-4 py-2.5 text-xs font-700 font-display inline-flex items-center justify-center min-h-[44px]"
+                    >
+                      Buka Halaman Profil
+                    </a>
+                    <button
+                      type="button"
+                      id="btn-download-qr"
+                      class="btn-email rounded-xl px-4 py-2.5 text-xs font-700 min-h-[44px]"
+                    >
+                      Download QR (PNG)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom Live Preview -->
+          <div
+            class="lg:col-span-5 flex flex-col items-center lg:sticky lg:top-8"
+          >
+            <p
+              class="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--lime)] mb-3"
+            >
+              Live Preview Kartu Anda
+            </p>
+            <div class="w-full max-w-[330px]">
+              <div class="lanyard-wrap">
+                <svg width="86" height="120" viewBox="0 0 86 150" fill="none">
+                  <rect
+                    x="30"
+                    y="0"
+                    width="26"
+                    height="70"
+                    rx="6"
+                    fill="var(--lime)"
+                  />
+                  <circle cx="43" cy="14" r="4.5" fill="var(--purple-deep)" />
+                  <circle
+                    cx="43"
+                    cy="72"
+                    r="9"
+                    fill="#D9D9D9"
+                    stroke="#9A9A9A"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M43 81 L43 100"
+                    stroke="#B9B9B9"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M25 100 h36 a10 10 0 0 1 10 10 v6 a10 10 0 0 1 -10 10 h-8 l-10 14 l-10 -14 h-8 a10 10 0 0 1 -10 -10 v-6 a10 10 0 0 1 10 -10 z"
+                    fill="#E6E6E6"
+                    stroke="#A6A6A6"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <div class="badge rounded-[28px] overflow-hidden pt-9 pb-5 px-6">
+                <p
+                  class="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--ink-soft)] text-center mt-5 mb-2"
+                >
+                  Kartu Profil Digital
+                </p>
+                <h3
+                  id="prev-nama"
+                  class="font-display text-2xl text-center mb-4 font-700"
+                >
+                  Nama Anda
+                </h3>
+                <div
+                  class="aspect-square rounded-2xl overflow-hidden bg-[var(--lime)] mb-3"
+                >
+                  <img
+                    id="prev-foto"
+                    src="assets/img/man.jpg"
+                    alt="Preview"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="text-center mb-4">
+                  <span
+                    id="prev-jabatan"
+                    class="inline-block font-700 text-xs split-underline px-1"
+                    >Jabatan / Profesi</span
+                  >
+                </div>
+                <div class="flex items-center gap-2 mb-4">
+                  <div
+                    class="btn-email flex-1 rounded-lg px-2 py-2 text-[11px] text-center truncate"
+                    id="prev-email"
+                  >
+                    email@anda.com
+                  </div>
+                  <div
+                    class="btn-whatsapp flex-1 rounded-lg px-2 py-2 text-[11px] font-700 text-center"
+                  >
+                    WhatsApp
+                  </div>
+                </div>
+                <div class="ticket-edge pt-3 flex items-center justify-between">
+                  <div class="barcode flex items-end h-5">
+                    <span style="height: 100%"></span
+                    ><span style="height: 55%"></span
+                    ><span style="height: 80%"></span>
+                    <span style="height: 40%"></span
+                    ><span style="height: 100%"></span
+                    ><span style="height: 65%"></span>
+                  </div>
+                  <span
+                    id="prev-id"
+                    class="font-mono text-[10px] text-[var(--ink-soft)] uppercase"
+                    >ID: -</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="relative z-10 border-t border-white/15 py-6 text-center text-xs text-white/75 font-mono"
+    >
+      © 2026 Navora Digital | Kartu Profil Digital & ID Card QR
+    </footer>
+
+    <script type="module" src="js/pages/landing.js"></script>
+  </body>
 </html>

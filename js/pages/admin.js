@@ -237,8 +237,8 @@ function renderTable() {
       const statusPill = getStatusPill(c.status);
       const payPill =
         c.paymentStatus === 'paid'
-          ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-700 bg-green-100 text-green-800 border border-green-300">Lunas · ${formatRupiah(c.paymentAmount)}</span>`
-          : `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-700 bg-amber-100 text-amber-900 border border-amber-300">Belum Bayar</span>`;
+          ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-green-100 text-green-800 border border-green-300">Lunas · ${formatRupiah(c.paymentAmount)}</span>`
+          : `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-amber-100 text-amber-900 border border-amber-300">Belum Bayar</span>`;
 
       return `
         <tr class="hover:bg-black/[0.02] transition">
@@ -278,12 +278,12 @@ function renderTable() {
 
 function getStatusPill(status) {
   if (status === 'completed') {
-    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-700 bg-purple-100 text-purple-900 border border-purple-300">Selesai</span>`;
+    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-purple-100 text-purple-900 border border-purple-300">Selesai</span>`;
   }
   if (status === 'printed') {
-    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-700 bg-blue-100 text-blue-900 border border-blue-300">Sudah Dicetak</span>`;
+    return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-600 bg-blue-100 text-blue-900 border border-blue-300">Sudah Dicetak</span>`;
   }
-  return `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-700 bg-[var(--lime)] text-[var(--ink)] border border-[var(--ink)]">Menunggu Cetak</span>`;
+  return `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-700 bg-[var(--lime)] text-[var(--ink)] border border-[var(--ink)]">Menunggu Cetak</span>`;
 }
 
 // Delegated table & notification actions
@@ -424,19 +424,35 @@ document.getElementById('btn-close-print').addEventListener('click', () => print
 
 function openPrintModal(client) {
   activePrintClientId = client.id;
-  document.getElementById('print-id-tag').textContent = `ID: ${client.id}`;
   document.getElementById('print-photo').src = client.foto || 'assets/img/man.jpg';
-  document.getElementById('print-name').textContent = client.nama || '-';
   document.getElementById('print-jabatan').textContent = client.jabatan || '-';
-  document.getElementById('print-contact-info').textContent = client.email || client.whatsapp || client.id;
+
+  // Pecah nama agar tampil dalam blok highlight ungu bertumpuk seperti template
+  const nameEl = document.getElementById('print-name');
+  const words = (client.nama || '-').trim().split(/\s+/);
+  let lines = [];
+  if (words.length <= 1) {
+    lines = [words[0] || '-'];
+  } else if (words.length === 2) {
+    lines = [words[0], words[1]];
+  } else {
+    const mid = Math.ceil(words.length / 2);
+    lines = [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+  }
+  nameEl.innerHTML = lines
+    .map(
+      (line) =>
+        `<span class="inline-block bg-[#6D28D9] text-white font-ui font-bold text-[15px] leading-tight px-2 py-0.5">${escapeHtml(line)}</span>`
+    )
+    .join('');
 
   const qrBox = document.getElementById('print-qr-box');
   qrBox.innerHTML = '';
   /* global QRCode */
   new QRCode(qrBox, {
     text: getProfileUrl(client.id),
-    width: 78,
-    height: 78,
+    width: 98,
+    height: 98,
     colorDark: '#15130F',
     colorLight: '#FFFFFF',
     correctLevel: QRCode.CorrectLevel.M

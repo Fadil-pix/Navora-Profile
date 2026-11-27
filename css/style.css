@@ -18,8 +18,12 @@ html,body{
   scroll-behavior:smooth;
 }
 
-.font-display{ font-family:'Space Grotesk', sans-serif; }
+.font-display{ font-family:'Space Grotesk', 'Plus Jakarta Sans', sans-serif; }
+.font-ui{ font-family:'Plus Jakarta Sans', 'Inter', sans-serif; }
 .font-mono{ font-family:'JetBrains Mono', monospace; }
+.font-500{ font-weight:500; }
+.font-600{ font-weight:600; }
+.font-700{ font-weight:700; }
 
 /* ---- Lapisan dekoratif latar belakang ---- */
 .deco{ position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
@@ -183,15 +187,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* ---- Styling Cetak ID Card Fisik ---- */
 .id-card-print-sheet{
-  width: 340px;
-  background: var(--cream);
-  border-radius: 22px;
-  border: 2px solid var(--ink);
+  width: 310px;
+  background: #FFFFFF;
+  border-radius: 18px;
+  border: 1px solid rgba(21,19,15,0.14);
+  box-shadow: 0 18px 40px -12px rgba(21,19,15,0.25);
   overflow: hidden;
   color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 @media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   body * {
     visibility: hidden !important;
   }
@@ -208,6 +219,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     padding: 0 !important;
     margin: 0 !important;
     z-index: 9999 !important;
+  }
+  .id-card-print-sheet {
+    box-shadow: none !important;
+    border: 1px solid rgba(21,19,15,0.18) !important;
   }
   .no-print {
     display: none !important;
